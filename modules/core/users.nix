@@ -12,8 +12,6 @@
       "networkmanager"
     ];
 
-    { config, pkgs, ... }:
-
     openssh.authorizedKeys.keyFiles = [
         ../../keys/authorized/macbook_workstation_flizzeri.pub
     ];
