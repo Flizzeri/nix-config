@@ -1,0 +1,128 @@
+# ~/.zshrc - Minimal, fast, portable
+
+# ============================================================================
+# Environment Variables
+# ============================================================================
+
+export EDITOR=nvim
+export VISUAL=nvim
+export PAGER="less -FRX"
+
+# Locale
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# ============================================================================
+# History
+# ============================================================================
+
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+setopt SHARE_HISTORY           # Share history across sessions
+setopt HIST_IGNORE_DUPS        # Don't record duplicates
+setopt HIST_IGNORE_SPACE       # Don't record commands starting with space
+setopt HIST_VERIFY             # Show command with history expansion before running
+setopt APPEND_HISTORY          # Append to history file
+setopt INC_APPEND_HISTORY      # Write to history immediately
+
+# ============================================================================
+# Completion
+# ============================================================================
+
+autoload -Uz compinit
+compinit
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'  # Case insensitive
+
+# ============================================================================
+# Shell Options
+# ============================================================================
+
+setopt AUTO_CD                 # cd by typing directory name
+setopt CORRECT                 # Command correction
+setopt NO_BEEP                 # No beep
+
+# ============================================================================
+# Aliases
+# ============================================================================
+
+# Better defaults
+alias ll='eza -lah --icons --git'
+alias la='eza -a --icons'
+alias ls='eza --icons'
+alias tree='eza --tree --icons'
+
+# Quick navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+
+# Git shortcuts
+alias gs='git status'
+alias gd='git diff'
+alias gco='git checkout'
+alias gl='git log --oneline --graph --decorate'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+alias gpl='git pull'
+
+# Better cat
+alias cat='bat --style=plain'
+
+# Safe operations
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# Vim muscle memory
+alias v='nvim'
+alias vim='nvim'
+
+# ============================================================================
+# Functions
+# ============================================================================
+
+# Make directory and cd into it
+mkcd() {
+  mkdir -p "$1" && cd "$1"
+}
+
+# Quick search with ripgrep
+search() {
+  rg --color=always --line-number --no-heading --smart-case "$@" | fzf --ansi
+}
+
+# Quick find with fd and fzf
+ff() {
+  local file
+  file=$(fd --type f --hidden --exclude .git | fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}')
+  [ -n "$file" ] && nvim "$file"
+}
+
+# ============================================================================
+# Tool Integrations
+# ============================================================================
+
+# Direnv (must be near end)
+if command -v direnv &> /dev/null; then
+  eval "$(direnv hook zsh)"
+fi
+
+# FZF keybindings
+if command -v fzf &> /dev/null; then
+  # Ctrl-T: paste selected file
+  # Ctrl-R: paste from history
+  # Alt-C: cd into selected directory
+  source <(fzf --zsh) 2>/dev/null || true
+fi
+
+# Starship prompt (must be last)
+if command -v starship &> /dev/null; then
+  eval "$(starship init zsh)"
+else
+  # Fallback prompt if starship not installed
+  PROMPT='%F{yellow}%~%f %F{green}❯%f '
+fi

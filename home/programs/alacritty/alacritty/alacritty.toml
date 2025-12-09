@@ -1,0 +1,108 @@
+# ~/.config/alacritty/alacritty.toml - Minimal, pitch black, polished
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+padding.x = 10
+padding.y = 10
+decorations = "full"
+opacity = 1.0
+dynamic_padding = false
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[font]
+normal.family = "JetBrainsMono Nerd Font"
+normal.style = "Regular"
+bold.family = "JetBrainsMono Nerd Font"
+bold.style = "Bold"
+italic.family = "JetBrainsMono Nerd Font"
+italic.style = "Italic"
+bold_italic.family = "JetBrainsMono Nerd Font"
+bold_italic.style = "Bold Italic"
+size = 13.0
+
+[cursor]
+style.shape = "Block"
+style.blinking = "Off"
+unfocused_hollow = true
+
+[colors]
+# Pitch black background
+[colors.primary]
+background = "#000000"  # Pitch black
+foreground = "#f8f6f0"  # Normal text
+
+# Cursor colors
+[colors.cursor]
+text = "#000000"
+cursor = "#d4af37"      # Primary color (gold)
+
+# Selection colors
+[colors.selection]
+text = "#000000"
+background = "#d4af37"  # Primary color
+
+# Normal colors
+[colors.normal]
+black   = "#1a1a1a"
+red     = "#b00000"     # Error color
+green   = "#50c878"     # Success color
+yellow  = "#d4af37"     # Primary color
+blue    = "#0f52ba"     # Info color
+magenta = "#ba55d3"
+cyan    = "#00ced1"
+white   = "#f8f6f0"     # Normal text
+
+# Bright colors
+[colors.bright]
+black   = "#4a4a4a"
+red     = "#ff3333"
+green   = "#7cfc00"
+yellow  = "#ffd700"
+blue    = "#4169e1"
+magenta = "#da70d6"
+cyan    = "#00ffff"
+white   = "#ffffff"
+
+# Dim colors (used for inactive text)
+[colors.dim]
+black   = "#0a0a0a"
+red     = "#800000"
+green   = "#3a8a5f"
+yellow  = "#9a8028"
+blue    = "#0a3a7a"
+magenta = "#8a3a9a"
+cyan    = "#007a8a"
+white   = "#a5a9b4"     # Border color
+
+[keyboard]
+# Default keybindings are fine, let Zellij/Neovim handle most
+
+[[keyboard.bindings]]
+key = "V"
+mods = "Control|Shift"
+action = "Paste"
+
+[[keyboard.bindings]]
+key = "C"
+mods = "Control|Shift"
+action = "Copy"
+
+[[keyboard.bindings]]
+key = "Plus"
+mods = "Control"
+action = "IncreaseFontSize"
+
+[[keyboard.bindings]]
+key = "Minus"
+mods = "Control"
+action = "DecreaseFontSize"
+
+[[keyboard.bindings]]
+key = "Key0"
+mods = "Control"
+action = "ResetFontSize"

@@ -1,0 +1,35 @@
+// ~/.config/zellij/config.kdl - Minimal, pitch black, polished
+
+// Theme
+theme "pitch-black"
+
+// UI
+default_layout "compact"
+simplified_ui true
+pane_frames false
+
+// Default shell
+default_shell "zsh"
+
+// Copy to clipboard
+copy_command "pbcopy"  // macOS - change to "wl-copy" or "xclip" for Linux
+
+// Behavior
+on_force_close "quit"
+scroll_buffer_size 10000
+copy_on_select true
+scrollback_editor "nvim"
+
+// Mouse
+mouse_mode true
+
+// Keybindings - use defaults (Ctrl+g for mode switching)
+// Override only if needed
+keybinds clear-defaults=false {
+    // Add custom keybinds here if desired
+}
+
+// Plugins
+plugins {
+    // Minimal plugin setup - only essentials
+}

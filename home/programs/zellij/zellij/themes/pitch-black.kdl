@@ -1,0 +1,38 @@
+// ~/.config/zellij/themes/pitch-black.kdl - Pitch black theme
+
+themes {
+    pitch-black {
+        // Foreground/Background
+        fg "#f8f6f0"          // Normal text
+        bg "#000000"          // Pitch black
+
+        // UI Colors
+        black   "#000000"
+        red     "#b00000"     // Error color
+        green   "#50c878"     // Success color
+        yellow  "#d4af37"     // Primary color (gold)
+        blue    "#0f52ba"     // Info color
+        magenta "#ba55d3"
+        cyan    "#00ced1"
+        white   "#f8f6f0"     // Normal text
+
+        // Bright variants
+        orange  "#ffa500"
+
+        // UI Elements
+        bg "#000000"
+        fg "#f8f6f0"
+
+        // Pane borders - strong, visible
+        orange "#a5a9b4"      // Border color for inactive
+        green "#d4af37"       // Border color for active (gold)
+
+        // Status bar
+        black "#000000"
+        gray "#a5a9b4"        // Border color
+
+        // Tabs
+        bg "#000000"
+        fg "#f8f6f0"
+    }
+}

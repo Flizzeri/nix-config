@@ -1,0 +1,144 @@
+# ~/.config/starship.toml - Oh-My-Zsh style, single line
+
+# Fast timeout
+command_timeout = 500
+
+# Single line prompt, no newline before
+add_newline = false
+
+# Format: directory version git_repo(branch) git-status:
+# Example: ~/projects/afterdark Node v22.16.0 afterdark(main) ($!?):
+format = """
+$directory\
+$git_branch\
+$nodejs\
+$rust\
+$python\
+$golang\
+$c\
+$lua\
+$git_status\
+$character"""
+
+[character]
+success_symbol = "[:](bold #f8f6f0)"
+error_symbol = "[:](bold #b00000)"
+format = "$symbol "
+
+[directory]
+style = "bold #d4af37"
+format = "[$path]($style)  "
+truncation_length = 3
+truncation_symbol = "…/"
+
+[git_branch]
+style = "bold #0f52ba"
+format = "[$symbol$branch]($style) "
+
+# Language versions
+[nodejs]
+style = "#50c878"
+format = "[$symbol$version]($style) "
+
+[rust]
+style = "#50c878"
+format = "[$symbol$version]($style) "
+
+[python]
+style = "#50c878"
+format = "[$symbol$version]($style) "
+
+[golang]
+style = "#50c878"
+format = "[$symbol$version]($style) "
+
+[c]
+style = "#50c878"
+format = "[$symbol$version]($style) "
+
+[lua]
+style = "#50c878"
+format = "[$symbol$version]($style) "
+
+[git_status]
+style = "#b00000"
+# IMPORTANT: leading space so it doesn't glue to branch, and matches your requested "... git-status:"
+format = " ([$all_status$ahead_behind]($style))"
+conflicted = "="
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕"
+untracked = "?"
+modified = "!"
+staged = "+"
+renamed = "»"
+deleted = "✘"
+
+# Disable everything else for speed
+[aws]
+disabled = true
+[battery]
+disabled = true
+[cmake]
+disabled = true
+[cmd_duration]
+disabled = true
+[conda]
+disabled = true
+[docker_context]
+disabled = true
+[dotnet]
+disabled = true
+[elixir]
+disabled = true
+[elm]
+disabled = true
+[erlang]
+disabled = true
+[gcloud]
+disabled = true
+[helm]
+disabled = true
+[java]
+disabled = true
+[julia]
+disabled = true
+[kotlin]
+disabled = true
+[kubernetes]
+disabled = true
+[memory_usage]
+disabled = true
+[nim]
+disabled = true
+[nix_shell]
+disabled = true
+[ocaml]
+disabled = true
+[package]
+disabled = true
+[perl]
+disabled = true
+[php]
+disabled = true
+[purescript]
+disabled = true
+[ruby]
+disabled = true
+[scala]
+disabled = true
+[swift]
+disabled = true
+[terraform]
+disabled = true
+[time]
+disabled = true
+[username]
+disabled = true
+[vagrant]
+disabled = true
+[vlang]
+disabled = true
+[zig]
+disabled = true
+
