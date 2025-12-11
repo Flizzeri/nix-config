@@ -18,7 +18,7 @@ let
     ''
       # Functions
       mkcd() {
-        mkdir -p "$1" && cd "$1"
+        mkdir -p "$1" && z "$1"
       }
 
       search() {
