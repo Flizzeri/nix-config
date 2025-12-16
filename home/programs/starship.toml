@@ -6,8 +6,6 @@ command_timeout = 500
 # Single line prompt, no newline before
 add_newline = false
 
-# Format: directory version git_repo(branch) git-status:
-# Example: ~/projects/afterdark Node v22.16.0 afterdark(main) ($!?):
 format = """
 $directory\
 $git_branch\
@@ -33,7 +31,7 @@ truncation_symbol = "…/"
 
 [git_branch]
 style = "bold #0f52ba"
-format = "[$symbol$branch]($style) "
+format = "[$symbol$branch]($style)  "
 
 # Language versions
 [nodejs]
