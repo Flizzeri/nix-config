@@ -1,145 +1,340 @@
--- Editor enhancement plugins
+-- ╭──────────────────────────────────────────────────────────╮
+-- │                  EDITOR UTILITIES                        │
+-- ╰──────────────────────────────────────────────────────────╯
+
 return {
-  -- Fuzzy finder
+  -- ── Which-key ───────────────────────────────────────────────
   {
-    "nvim-telescope/telescope.nvim",
-    cmd = "Telescope",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    "folke/which-key.nvim",
+    event = "VeryLazy",
     opts = {
-      defaults = {
-        prompt_prefix = " ",
-        selection_caret = " ",
-        path_display = { "truncate" },
-        sorting_strategy = "ascending",
-        layout_config = {
-          horizontal = {
-            prompt_position = "top",
-            preview_width = 0.55,
-          },
-          vertical = {
-            mirror = false,
-          },
-          width = 0.87,
-          height = 0.80,
-          preview_cutoff = 120,
+      preset = "classic",
+      delay = 300,
+      icons = {
+        breadcrumb = "»",
+        separator = "➜",
+        group = "+",
+        ellipsis = "…",
+        mappings = true,
+        rules = {},
+        colors = true,
+        keys = {
+          Up = " ",
+          Down = " ",
+          Left = " ",
+          Right = " ",
+          C = "󰘴 ",
+          M = "󰘵 ",
+          D = "󰘳 ",
+          S = "󰘶 ",
+          CR = "󰌑 ",
+          Esc = "󱊷 ",
+          ScrollWheelDown = "󱕐 ",
+          ScrollWheelUp = "󱕑 ",
+          NL = "󰌑 ",
+          BS = "󰁮",
+          Space = "󱁐 ",
+          Tab = "󰌒 ",
+          F1 = "󱊫",
+          F2 = "󱊬",
+          F3 = "󱊭",
+          F4 = "󱊮",
+          F5 = "󱊯",
+          F6 = "󱊰",
+          F7 = "󱊱",
+          F8 = "󱊲",
+          F9 = "󱊳",
+          F10 = "󱊴",
+          F11 = "󱊵",
+          F12 = "󱊶",
         },
-        mappings = {
-          i = {
-            ["<C-j>"] = "move_selection_next",
-            ["<C-k>"] = "move_selection_previous",
-            ["<Esc>"] = "close",
-          },
+      },
+      spec = {
+        { "<leader>b", group = "buffer" },
+        { "<leader>c", group = "code" },
+        { "<leader>f", group = "file/find" },
+        { "<leader>g", group = "git" },
+        { "<leader>gh", group = "hunks" },
+        { "<leader>s", group = "search" },
+        { "<leader>sn", group = "noice" },
+        { "<leader>u", group = "ui/toggle" },
+        { "<leader>x", group = "diagnostics/quickfix" },
+        { "<leader><tab>", group = "tabs" },
+        { "[", group = "prev" },
+        { "]", group = "next" },
+        { "g", group = "goto" },
+        { "z", group = "fold" },
+      },
+      win = {
+        border = "rounded",
+        padding = { 1, 2 },
+        wo = {
+          winblend = 0,
         },
-        borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+      },
+      layout = {
+        width = { min = 20, max = 50 },
+        spacing = 3,
+      },
+    },
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Buffer keymaps (which-key)",
       },
     },
   },
-
-  -- Treesitter
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-          "lua",
-          "vim",
-          "vimdoc",
-          "typescript",
-          "javascript",
-          "tsx",
-          "rust",
-          "python",
-          "go",
-          "c",
-          "cpp",
-          "json",
-          "yaml",
-          "toml",
-          "markdown",
-          "markdown_inline",
-        },
-        auto_install = true,
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false,
-        },
-        indent = {
-          enable = true,
-        },
-      })
-    end,
-  },
-
-  -- Git signs
-  {
-    "lewis6991/gitsigns.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    opts = {
-      signs = {
-        add = { text = "│" },
-        change = { text = "│" },
-        delete = { text = "_" },
-        topdelete = { text = "‾" },
-        changedelete = { text = "~" },
-      },
-      on_attach = function(bufnr)
-        local gs = package.loaded.gitsigns
-
-        local function map(mode, l, r, desc)
-          vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
-        end
-
-        -- Navigation
-        map("n", "]h", gs.next_hunk, "Next hunk")
-        map("n", "[h", gs.prev_hunk, "Previous hunk")
-
-        -- Actions
-        map("n", "<leader>hs", gs.stage_hunk, "Stage hunk")
-        map("n", "<leader>hr", gs.reset_hunk, "Reset hunk")
-        map("v", "<leader>hs", function()
-          gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-        end, "Stage hunk")
-        map("v", "<leader>hr", function()
-          gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-        end, "Reset hunk")
-        map("n", "<leader>hS", gs.stage_buffer, "Stage buffer")
-        map("n", "<leader>hu", gs.undo_stage_hunk, "Undo stage hunk")
-        map("n", "<leader>hR", gs.reset_buffer, "Reset buffer")
-        map("n", "<leader>hp", gs.preview_hunk, "Preview hunk")
-        map("n", "<leader>hb", function()
-          gs.blame_line({ full = true })
-        end, "Blame line")
-        map("n", "<leader>hd", gs.diffthis, "Diff this")
-      end,
-    },
-  },
-
-  -- Autopairs
+  
+  -- ── Autopairs ───────────────────────────────────────────────
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
+    dependencies = { "hrsh7th/nvim-cmp" },
     opts = {
       check_ts = true,
       ts_config = {
-        lua = { "string" },
-        javascript = { "template_string" },
+        lua = { "string", "source" },
+        javascript = { "string", "template_string" },
+        java = false,
+      },
+      disable_filetype = { "TelescopePrompt", "spectre_panel" },
+      fast_wrap = {
+        map = "<M-e>",
+        chars = { "{", "[", "(", '"', "'" },
+        pattern = [=[[%'%"%)%>%]%)%}%,]]=],
+        end_key = "$",
+        before_key = "h",
+        after_key = "l",
+        cursor_pos_before = true,
+        keys = "qwertyuiopzxcvbnmasdfghjkl",
+        manual_position = true,
+        highlight = "PmenuSel",
+        highlight_grey = "LineNr",
+      },
+    },
+    config = function(_, opts)
+      local autopairs = require("nvim-autopairs")
+      autopairs.setup(opts)
+      
+      -- Integration with cmp
+      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+      require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+    end,
+  },
+  
+  -- ── Comment ─────────────────────────────────────────────────
+  {
+    "numToStr/Comment.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      padding = true,
+      sticky = true,
+      ignore = "^$",
+      toggler = {
+        line = "gcc",
+        block = "gbc",
+      },
+      opleader = {
+        line = "gc",
+        block = "gb",
+      },
+      extra = {
+        above = "gcO",
+        below = "gco",
+        eol = "gcA",
+      },
+      mappings = {
+        basic = true,
+        extra = true,
+      },
+      pre_hook = nil,
+      post_hook = nil,
+    },
+  },
+  
+  -- ── Surround ────────────────────────────────────────────────
+  {
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",
+    opts = {
+      keymaps = {
+        insert = "<C-g>s",
+        insert_line = "<C-g>S",
+        normal = "ys",
+        normal_cur = "yss",
+        normal_line = "yS",
+        normal_cur_line = "ySS",
+        visual = "S",
+        visual_line = "gS",
+        delete = "ds",
+        change = "cs",
+        change_line = "cS",
+      },
+      move_cursor = "begin",
+    },
+  },
+  
+  -- ── Better escape ───────────────────────────────────────────
+  {
+    "max397574/better-escape.nvim",
+    event = "InsertEnter",
+    opts = {
+      timeout = 200,
+      default_mappings = false,
+      mappings = {
+        i = {
+          j = {
+            k = "<Esc>",
+          },
+        },
+        c = {
+          j = {
+            k = "<Esc>",
+          },
+        },
+        t = {
+          j = {
+            k = "<C-\\><C-n>",
+          },
+        },
+        v = {
+          j = {
+            k = "<Esc>",
+          },
+        },
+        s = {
+          j = {
+            k = "<Esc>",
+          },
+        },
       },
     },
   },
-
-  -- Comment toggling
+  
+  -- ── Todo comments ───────────────────────────────────────────
   {
-    "numToStr/Comment.nvim",
-    keys = {
-      { "gcc", mode = "n", desc = "Comment toggle current line" },
-      { "gc", mode = { "n", "o" }, desc = "Comment toggle linewise" },
-      { "gc", mode = "x", desc = "Comment toggle linewise (visual)" },
-      { "gbc", mode = "n", desc = "Comment toggle current block" },
-      { "gb", mode = { "n", "o" }, desc = "Comment toggle blockwise" },
-      { "gb", mode = "x", desc = "Comment toggle blockwise (visual)" },
+    "folke/todo-comments.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      signs = true,
+      sign_priority = 8,
+      keywords = {
+        FIX = {
+          icon = " ",
+          color = "error",
+          alt = { "FIXME", "BUG", "FIXIT", "ISSUE" },
+        },
+        TODO = { icon = " ", color = "info" },
+        HACK = { icon = " ", color = "warning" },
+        WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+        PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+        NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+        TEST = { icon = "󰙨 ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+      },
+      gui_style = {
+        fg = "NONE",
+        bg = "BOLD",
+      },
+      merge_keywords = true,
+      highlight = {
+        multiline = true,
+        multiline_pattern = "^.",
+        multiline_context = 10,
+        before = "",
+        keyword = "wide",
+        after = "fg",
+        pattern = [[.*<(KEYWORDS)\s*:]],
+        comments_only = true,
+        max_line_len = 400,
+        exclude = {},
+      },
+      colors = {
+        error = { "DiagnosticError", "ErrorMsg", "#db4b4b" },
+        warning = { "DiagnosticWarn", "WarningMsg", "#e0af68" },
+        info = { "DiagnosticInfo", "#0db9d7" },
+        hint = { "DiagnosticHint", "#1abc9c" },
+        default = { "Identifier", "#7aa2f7" },
+        test = { "Identifier", "#bb9af7" },
+      },
+      search = {
+        command = "rg",
+        args = {
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+        },
+        pattern = [[\b(KEYWORDS):]],
+      },
     },
-    opts = {},
+    keys = {
+      {
+        "]t",
+        function() require("todo-comments").jump_next() end,
+        desc = "Next todo comment",
+      },
+      {
+        "[t",
+        function() require("todo-comments").jump_prev() end,
+        desc = "Previous todo comment",
+      },
+      { "<leader>st", "<cmd>TodoTelescope<CR>", desc = "Todo comments" },
+      { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<CR>", desc = "Todo/Fix/Fixme" },
+      { "<leader>xt", "<cmd>TodoTrouble<CR>", desc = "Todo (Trouble)" },
+      { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<CR>", desc = "Todo/Fix/Fixme (Trouble)" },
+    },
+  },
+  
+  -- ── Mini indentscope ────────────────────────────────────────
+  {
+    "echasnovski/mini.indentscope",
+    version = false,
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      symbol = "│",
+      options = {
+        try_as_border = true,
+      },
+    },
+    init = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = {
+          "help",
+          "alpha",
+          "dashboard",
+          "neo-tree",
+          "Trouble",
+          "trouble",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm",
+          "lazyterm",
+        },
+        callback = function()
+          vim.b.miniindentscope_disable = true
+        end,
+      })
+    end,
+  },
+  
+  -- ── Plenary (dependency) ────────────────────────────────────
+  { "nvim-lua/plenary.nvim", lazy = true },
+  
+  -- ── Web devicons ────────────────────────────────────────────
+  {
+    "nvim-tree/nvim-web-devicons",
+    lazy = true,
+    opts = {
+      color_icons = true,
+      default = true,
+      strict = true,
+    },
   },
 }
