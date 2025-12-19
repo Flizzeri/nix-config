@@ -1,21 +1,24 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                     AUTOCOMMANDS                         │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭──────────────────────────────────────────────────────────────────────────╮
+-- │                             Autocommands                                 │
+-- ╰──────────────────────────────────────────────────────────────────────────╯
 
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
--- ── Highlight on Yank ───────────────────────────────────────
+-- ── General Settings ────────────────────────────────────────────────────────
+local general = augroup("General", { clear = true })
+
+-- Highlight on yank
 autocmd("TextYankPost", {
-  group = augroup("YankHighlight", { clear = true }),
+  group = general,
   callback = function()
-    vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
+    vim.highlight.on_yank({ higroup = "Visual", timeout = 150 })
   end,
 })
 
--- ── Restore Cursor Position ─────────────────────────────────
+-- Restore cursor position
 autocmd("BufReadPost", {
-  group = augroup("RestoreCursor", { clear = true }),
+  group = general,
   callback = function(args)
     local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
     local line_count = vim.api.nvim_buf_line_count(args.buf)
@@ -25,111 +28,103 @@ autocmd("BufReadPost", {
   end,
 })
 
--- ── Resize Splits on Window Resize ──────────────────────────
+-- Auto-resize splits on window resize
 autocmd("VimResized", {
-  group = augroup("ResizeSplits", { clear = true }),
+  group = general,
   callback = function()
-    local current_tab = vim.fn.tabpagenr()
     vim.cmd("tabdo wincmd =")
-    vim.cmd("tabnext " .. current_tab)
   end,
 })
 
--- ── Close Certain Filetypes with q ──────────────────────────
+-- Close some filetypes with <q>
 autocmd("FileType", {
-  group = augroup("CloseWithQ", { clear = true }),
+  group = general,
   pattern = {
-    "help", "lspinfo", "notify", "qf", "query",
-    "checkhealth", "neotest-output", "neotest-output-panel",
-    "neotest-summary", "startuptime", "gitsigns-blame",
+    "qf", "help", "man", "notify", "lspinfo", "checkhealth",
+    "startuptime", "tsplayground", "PlenaryTestPopup",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
-    vim.keymap.set("n", "q", "<cmd>close<CR>", {
-      buffer = event.buf,
-      silent = true,
-      desc = "Close buffer",
-    })
+    vim.keymap.set("n", "q", "<cmd>close<CR>", { buffer = event.buf, silent = true })
   end,
 })
 
--- ── Auto Create Directories ─────────────────────────────────
-autocmd("BufWritePre", {
-  group = augroup("AutoCreateDir", { clear = true }),
-  callback = function(event)
-    if event.match:match("^%w%w+:[\\/][\\/]") then
-      return
-    end
-    local file = vim.uv.fs_realpath(event.match) or event.match
-    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
-  end,
-})
+-- ── File-specific Settings ──────────────────────────────────────────────────
+local filetype = augroup("FileType", { clear = true })
 
--- ── Check for External File Changes ─────────────────────────
-autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
-  group = augroup("CheckTime", { clear = true }),
-  callback = function()
-    if vim.o.buftype ~= "nofile" then
-      vim.cmd("checktime")
-    end
-  end,
-})
-
--- ── Wrap & Spell in Text Files ──────────────────────────────
+-- Set wrap and spell for text files
 autocmd("FileType", {
-  group = augroup("WrapSpell", { clear = true }),
-  pattern = { "text", "plaintex", "typst", "gitcommit", "markdown" },
+  group = filetype,
+  pattern = { "markdown", "text", "gitcommit" },
   callback = function()
     vim.opt_local.wrap = true
     vim.opt_local.spell = true
   end,
 })
 
--- ── Fix Conceallevel for JSON ───────────────────────────────
-autocmd("FileType", {
-  group = augroup("JsonConceal", { clear = true }),
-  pattern = { "json", "jsonc", "json5" },
+-- Disable diagnostics in node_modules
+autocmd({ "BufRead", "BufNewFile" }, {
+  group = filetype,
+  pattern = "*/node_modules/*",
   callback = function()
-    vim.opt_local.conceallevel = 0
+    vim.diagnostic.enable(false)
   end,
 })
 
--- ── Disable New Line Comments ───────────────────────────────
-autocmd("BufEnter", {
-  group = augroup("NoAutoComment", { clear = true }),
-  callback = function()
-    vim.opt.formatoptions:remove({ "c", "r", "o" })
-  end,
-})
+-- ── LSP Attach ──────────────────────────────────────────────────────────────
+local lsp_group = augroup("LspAttach", { clear = true })
 
--- ── Large File Handling ─────────────────────────────────────
-autocmd("BufReadPre", {
-  group = augroup("LargeFile", { clear = true }),
+autocmd("LspAttach", {
+  group = lsp_group,
   callback = function(args)
-    local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(args.buf))
-    if ok and stats and stats.size > 1024 * 1024 then -- 1MB
-      vim.b[args.buf].large_file = true
-      vim.opt_local.spell = false
-      vim.opt_local.swapfile = false
-      vim.opt_local.undofile = false
-      vim.opt_local.breakindent = false
-      vim.opt_local.colorcolumn = ""
-      vim.opt_local.statuscolumn = ""
-      vim.opt_local.signcolumn = "no"
-      vim.opt_local.foldmethod = "manual"
-      vim.opt_local.syntax = ""
-    end
-  end,
-})
+    local bufnr = args.buf
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if not client then return end
 
--- ── Terminal Settings ───────────────────────────────────────
-autocmd("TermOpen", {
-  group = augroup("TerminalSettings", { clear = true }),
-  callback = function()
-    vim.opt_local.number = false
-    vim.opt_local.relativenumber = false
-    vim.opt_local.signcolumn = "no"
-    vim.opt_local.statuscolumn = ""
-    vim.cmd("startinsert")
+    local map = function(mode, lhs, rhs, desc)
+      vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+    end
+
+    -- Navigation
+    map("n", "gd", vim.lsp.buf.definition, "Go to definition")
+    map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
+    map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
+    map("n", "gr", vim.lsp.buf.references, "Go to references")
+    map("n", "gy", vim.lsp.buf.type_definition, "Go to type definition")
+
+    -- Documentation
+    map("n", "K", vim.lsp.buf.hover, "Hover documentation")
+    map({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, "Signature help")
+
+    -- Actions
+    map("n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
+    map("v", "<leader>ca", vim.lsp.buf.code_action, "Code action")
+    map("n", "<leader>cr", vim.lsp.buf.rename, "Rename symbol")
+    map("n", "<leader>cf", function()
+      require("conform").format({ bufnr = bufnr, async = true, lsp_fallback = true })
+    end, "Format buffer")
+
+    -- Workspace
+    map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, "Add workspace folder")
+    map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, "Remove workspace folder")
+    map("n", "<leader>wl", function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, "List workspace folders")
+
+    -- Inlay hints (if supported)
+    if client.supports_method("textDocument/inlayHint") then
+      map("n", "<leader>ch", function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+      end, "Toggle inlay hints")
+    end
+
+    -- Code lens (if supported)
+    if client.supports_method("textDocument/codeLens") then
+      map("n", "<leader>cl", vim.lsp.codelens.run, "Run code lens")
+      autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+        buffer = bufnr,
+        callback = vim.lsp.codelens.refresh,
+      })
+    end
   end,
 })

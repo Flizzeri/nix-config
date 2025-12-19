@@ -1,4 +1,4 @@
-# ~/.config/starship.toml - Oh-My-Zsh style, single line
+"$schema" = 'https://starship.rs/config-schema.json'
 
 # Fast timeout
 command_timeout = 500
@@ -7,61 +7,65 @@ command_timeout = 500
 add_newline = false
 
 format = """
+[](#e0af68)\
 $directory\
+[](fg:#e0af68 bg:#7aa2f7)\
 $git_branch\
+[](fg:#7aa2f7 bg:#73daca)\
 $nodejs\
 $rust\
 $python\
 $golang\
 $c\
 $lua\
+[](fg:#73daca bg:#f7768e)\
 $git_status\
+[ ](fg:#f7768e)\
 $character"""
 
 [character]
-success_symbol = "[:](bold #f8f6f0)"
-error_symbol = "[:](bold #b00000)"
+success_symbol = "[:](bold #c0caf5)"
+error_symbol = "[:](bold #f7768e)"
 format = "$symbol "
 
 [directory]
-style = "bold #d4af37"
-format = "[$path]($style)  "
+style = "fg:#1a1b26 bg:#e0af68"
+format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
 
 [git_branch]
-style = "bold #0f52ba"
-format = "[$symbol$branch]($style)  "
+style = "fg:#1a1b26 bg:#7aa2f7"
+format = "[ $symbol $branch ]($style)"
 
-# Language versions
+# Language versions (single Tokyo Night green segment)
 [nodejs]
-style = "#50c878"
-format = "[$symbol$version]($style) "
+style = "fg:#1a1b26 bg:#73daca"
+format = "[ $symbol$version ]($style)"
 
 [rust]
-style = "#50c878"
-format = "[$symbol$version]($style) "
+style = "fg:#1a1b26 bg:#73daca"
+format = "[ $symbol$version ]($style)"
 
 [python]
-style = "#50c878"
-format = "[$symbol$version]($style) "
+style = "fg:#1a1b26 bg:#73daca"
+format = "[ $symbol$version ]($style)"
 
 [golang]
-style = "#50c878"
-format = "[$symbol$version]($style) "
+style = "fg:#1a1b26 bg:#73daca"
+format = "[ $symbol$version ]($style)"
 
 [c]
-style = "#50c878"
-format = "[$symbol$version]($style) "
+style = "fg:#1a1b26 bg:#73daca"
+format = "[ $symbol$version ]($style)"
 
 [lua]
-style = "#50c878"
-format = "[$symbol$version]($style) "
+style = "fg:#1a1b26 bg:#73daca"
+format = "[ $symbol$version ]($style)"
 
 [git_status]
-style = "#b00000"
-# IMPORTANT: leading space so it doesn't glue to branch, and matches your requested "... git-status:"
-format = " ([$all_status$ahead_behind]($style))"
+style = "fg:#1a1b26 bg:#f7768e"
+format = "[ $all_status$ahead_behind ]($style)"
 conflicted = "="
 ahead = "⇡${count}"
 behind = "⇣${count}"
@@ -73,70 +77,102 @@ renamed = "»"
 deleted = "✘"
 
 # Disable everything else for speed
-[aws]
+[aws] 
 disabled = true
-[battery]
+
+[battery] 
 disabled = true
-[cmake]
+
+[cmake] 
 disabled = true
-[cmd_duration]
+
+[cmd_duration] 
 disabled = true
-[conda]
+
+[conda] 
 disabled = true
-[docker_context]
+
+[docker_context] 
 disabled = true
-[dotnet]
+
+[dotnet] 
 disabled = true
-[elixir]
+
+[elixir] 
 disabled = true
-[elm]
+
+[elm] 
 disabled = true
-[erlang]
+
+[erlang] 
 disabled = true
-[gcloud]
+
+[gcloud] 
 disabled = true
-[helm]
+
+[helm] 
 disabled = true
-[java]
+
+[java] 
 disabled = true
-[julia]
+
+[julia] 
 disabled = true
-[kotlin]
+
+[kotlin] 
 disabled = true
-[kubernetes]
+
+[kubernetes] 
 disabled = true
-[memory_usage]
+
+[memory_usage] 
 disabled = true
-[nim]
+
+[nim] 
 disabled = true
-[nix_shell]
+
+[nix_shell] 
 disabled = true
-[ocaml]
+
+[ocaml] 
 disabled = true
-[package]
+
+[package] 
 disabled = true
-[perl]
+
+[perl] 
 disabled = true
-[php]
+
+[php] 
 disabled = true
-[purescript]
+
+[purescript] 
 disabled = true
-[ruby]
+
+[ruby] 
 disabled = true
-[scala]
+
+[scala] 
 disabled = true
-[swift]
+
+[swift] 
 disabled = true
-[terraform]
+
+[terraform] 
 disabled = true
-[time]
+
+[time] 
 disabled = true
-[username]
+
+[username] 
 disabled = true
-[vagrant]
+
+[vagrant] 
 disabled = true
-[vlang]
+
+[vlang] 
 disabled = true
-[zig]
+
+[zig] 
 disabled = true
 

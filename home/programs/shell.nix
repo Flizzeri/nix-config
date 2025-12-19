@@ -40,9 +40,12 @@ let
     ''
 
     ''
-      # Fallback prompt if starship is absent
-      if ! command -v starship &> /dev/null; then
-        PROMPT='%F{yellow}%~%f %F{green}❯%f '
+      # Fastfetch: run once, only in the first interactive shell OUTSIDE Zellij
+      if [[ -o interactive ]] && command -v fastfetch >/dev/null 2>&1; then
+        if [[ -z "$ZELLIJ" ]] && [[ -z "$_FASTFETCH_SHOWN_OUTSIDE_ZELLIJ" ]]; then
+          export _FASTFETCH_SHOWN_OUTSIDE_ZELLIJ=1
+          fastfetch
+        fi
       fi
     ''
   ];

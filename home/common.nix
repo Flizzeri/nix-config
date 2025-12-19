@@ -17,6 +17,7 @@ in
     ./programs/neovim/default.nix
     ./programs/alacritty/default.nix
     ./programs/zellij/default.nix
+    ./programs/fastfetch/default.nix
   ];
 
   programs.home-manager.enable = true;

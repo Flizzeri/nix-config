@@ -1,25 +1,30 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                     CORE OPTIONS                         │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭──────────────────────────────────────────────────────────────────────────╮
+-- │                               Options                                    │
+-- ╰──────────────────────────────────────────────────────────────────────────╯
 
 local opt = vim.opt
+local g = vim.g
 
--- ── Appearance ──────────────────────────────────────────────
+-- Leader keys (must be set before lazy)
+g.mapleader = " "
+g.maplocalleader = "\\"
+
+-- ── UI ──────────────────────────────────────────────────────────────────────
 opt.termguicolors = true
-opt.background = "dark"
-opt.pumblend = 10           -- Popup menu transparency
-opt.winblend = 10           -- Floating window transparency
-opt.pumheight = 12          -- Max popup menu height
-opt.cmdheight = 0           -- Hide command line when not in use
-opt.showmode = false        -- Mode shown in lualine
-opt.signcolumn = "yes:1"    -- Always show sign column
-opt.cursorline = true       -- Highlight current line
-opt.number = true           -- Line numbers
-opt.relativenumber = true   -- Relative line numbers
-opt.numberwidth = 3         -- Gutter width
-opt.laststatus = 3          -- Global statusline
+opt.number = true
+opt.relativenumber = true
+opt.signcolumn = "yes"
+opt.cursorline = true
+opt.scrolloff = 8
+opt.sidescrolloff = 8
+opt.showmode = false          -- Shown in lualine
+opt.cmdheight = 0             -- Hide cmdline when not in use
+opt.laststatus = 3            -- Global statusline
+opt.pumheight = 12            -- Popup menu height
+opt.pumblend = 10             -- Popup menu transparency
+opt.winblend = 10             -- Floating window transparency
 opt.fillchars = {
-  eob = " ",                -- Hide ~ on empty lines
+  eob = " ",                  -- Hide ~ on empty lines
   fold = " ",
   foldopen = " ",
   foldclose = " ",
@@ -33,80 +38,56 @@ opt.fillchars = {
   vertright = "├",
   verthoriz = "┼",
 }
-opt.list = true
-opt.listchars = {
-  tab = "  ",
-  trail = "·",
-  extends = "›",
-  precedes = "‹",
-  nbsp = "␣",
-}
 
--- ── Behavior ────────────────────────────────────────────────
-opt.mouse = "a"
-opt.clipboard = "unnamedplus"
-opt.virtualedit = "block"
-opt.confirm = true
-opt.updatetime = 200
-opt.timeoutlen = 300
-opt.undofile = true
-opt.undolevels = 10000
-opt.writebackup = false
-opt.swapfile = false
-
--- ── Search ──────────────────────────────────────────────────
-opt.ignorecase = true
-opt.smartcase = true
-opt.hlsearch = true
-opt.incsearch = true
-opt.grepformat = "%f:%l:%c:%m"
-opt.grepprg = "rg --vimgrep"
-
--- ── Indentation ─────────────────────────────────────────────
+-- ── Editing ─────────────────────────────────────────────────────────────────
 opt.expandtab = true
 opt.shiftwidth = 2
 opt.tabstop = 2
 opt.softtabstop = 2
 opt.smartindent = true
-opt.shiftround = true
-
--- ── Splits & Windows ────────────────────────────────────────
-opt.splitbelow = true
-opt.splitright = true
-opt.splitkeep = "screen"
-opt.equalalways = false
-
--- ── Wrapping ────────────────────────────────────────────────
 opt.wrap = false
 opt.linebreak = true
 opt.breakindent = true
-opt.showbreak = "↪ "
+opt.virtualedit = "block"     -- Block selection past EOL
 
--- ── Completion ──────────────────────────────────────────────
+-- ── Search ──────────────────────────────────────────────────────────────────
+opt.ignorecase = true
+opt.smartcase = true
+opt.hlsearch = true
+opt.incsearch = true
+
+-- ── Splits ──────────────────────────────────────────────────────────────────
+opt.splitbelow = true
+opt.splitright = true
+opt.splitkeep = "screen"
+
+-- ── Completion ──────────────────────────────────────────────────────────────
 opt.completeopt = { "menu", "menuone", "noselect" }
-opt.shortmess:append({ W = true, I = true, c = true, C = true })
+opt.shortmess:append("c")     -- Don't show completion messages
 
--- ── Folding ─────────────────────────────────────────────────
-opt.foldlevel = 99
-opt.foldlevelstart = 99
-opt.foldmethod = "expr"
-opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-opt.foldtext = ""
+-- ── Files & Backup ──────────────────────────────────────────────────────────
+opt.undofile = true
+opt.undolevels = 10000
+opt.swapfile = false
+opt.backup = false
+opt.writebackup = false
+opt.autoread = true
 
--- ── Scrolling ───────────────────────────────────────────────
-opt.scrolloff = 8
-opt.sidescrolloff = 8
-opt.smoothscroll = true
+-- ── Performance ─────────────────────────────────────────────────────────────
+opt.updatetime = 200
+opt.timeoutlen = 300
+opt.redrawtime = 1500
+opt.lazyredraw = false
 
--- ── Session ─────────────────────────────────────────────────
-opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
-
--- ── Spell ───────────────────────────────────────────────────
+-- ── Misc ────────────────────────────────────────────────────────────────────
+opt.clipboard = "unnamedplus"
+opt.mouse = "a"
+opt.conceallevel = 2
+opt.confirm = true
 opt.spelllang = { "en" }
-opt.spelloptions:append("camel")
 
--- ── Disable providers ───────────────────────────────────────
-vim.g.loaded_python3_provider = 0
-vim.g.loaded_ruby_provider = 0
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_node_provider = 0
+-- Disable some builtin providers
+g.loaded_python3_provider = 0
+g.loaded_ruby_provider = 0
+g.loaded_perl_provider = 0
+g.loaded_node_provider = 0

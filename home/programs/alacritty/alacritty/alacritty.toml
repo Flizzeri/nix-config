@@ -1,108 +1,215 @@
-# ~/.config/alacritty/alacritty.toml - Minimal, pitch black, polished
+# ╭──────────────────────────────────────────────────────────────────────────╮
+# │                              Alacritty                                   │
+# │                      Pitch Black • Tokyo Night                           │
+# ╰──────────────────────────────────────────────────────────────────────────╯
 
-[env]
-TERM = "xterm-256color"
+[general]
+live_config_reload = true
+import = []
 
+# ── Window ───────────────────────────────────────────────────────────────────
 [window]
-padding.x = 10
-padding.y = 10
-decorations = "full"
-opacity = 1.0
-dynamic_padding = false
+decorations = "Buttonless"
+dynamic_padding = true
+opacity = 0.92
+blur = true
+startup_mode = "Windowed"
+title = "Terminal"
+dynamic_title = true
+decorations_theme_variant = "Dark"
 
+[window.dimensions]
+columns = 140
+lines = 40
+
+[window.padding]
+x = 12
+y = 10
+
+# ── Font ─────────────────────────────────────────────────────────────────────
+[font]
+size = 13.0
+builtin_box_drawing = true
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Italic"
+
+[font.bold_italic]
+family = "JetBrainsMono Nerd Font"
+style = "Bold Italic"
+
+[font.offset]
+x = 0
+y = 1
+
+[font.glyph_offset]
+x = 0
+y = 0
+
+# ── Cursor ───────────────────────────────────────────────────────────────────
+[cursor]
+blink_interval = 500
+blink_timeout = 0
+unfocused_hollow = true
+vi_mode_style = "Block"
+
+[cursor.style]
+shape = "Block"
+blinking = "On"
+
+# ── Scrolling ────────────────────────────────────────────────────────────────
 [scrolling]
 history = 10000
 multiplier = 3
 
-[font]
-normal.family = "JetBrainsMono Nerd Font"
-normal.style = "Regular"
-bold.family = "JetBrainsMono Nerd Font"
-bold.style = "Bold"
-italic.family = "JetBrainsMono Nerd Font"
-italic.style = "Italic"
-bold_italic.family = "JetBrainsMono Nerd Font"
-bold_italic.style = "Bold Italic"
-size = 13.0
+# ── Selection ────────────────────────────────────────────────────────────────
+[selection]
+save_to_clipboard = true
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 
-[cursor]
-style.shape = "Block"
-style.blinking = "Off"
-unfocused_hollow = true
+# ── Bell ─────────────────────────────────────────────────────────────────────
+[bell]
+animation = "EaseOutExpo"
+color = "#7aa2f7"
+duration = 100
+
+# ── Terminal ─────────────────────────────────────────────────────────────────
+[terminal]
+osc52 = "CopyPaste"
+
+[terminal.shell]
+program = "/bin/zsh"
+
+# ── Mouse ────────────────────────────────────────────────────────────────────
+[mouse]
+hide_when_typing = true
+
+# ── Hints ────────────────────────────────────────────────────────────────────
+[hints]
+enabled = [
+  { binding = { key = "U", mods = "Control|Shift" }, command = "open", hyperlinks = true, post_processing = true, persist = false, mouse = { enabled = true, mods = "None" }, regex = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+" }
+]
+
+# ══════════════════════════════════════════════════════════════════════════════
+# COLORS - Tokyo Night with Pitch Black Background
+# ══════════════════════════════════════════════════════════════════════════════
 
 [colors]
-# Pitch black background
+draw_bold_text_with_bright_colors = true
+
 [colors.primary]
-background = "#000000"  # Pitch black
-foreground = "#f8f6f0"  # Normal text
+background = "#000000"
+foreground = "#c0caf5"
+dim_foreground = "#a9b1d6"
+bright_foreground = "#c0caf5"
 
-# Cursor colors
 [colors.cursor]
+cursor = "#7aa2f7"
 text = "#000000"
-cursor = "#d4af37"      # Primary color (gold)
 
-# Selection colors
-[colors.selection]
+[colors.vi_mode_cursor]
+cursor = "#bb9af7"
 text = "#000000"
-background = "#d4af37"  # Primary color
+
+[colors.search.matches]
+background = "#3d59a1"
+foreground = "#c0caf5"
+
+[colors.search.focused_match]
+background = "#ff9e64"
+foreground = "#000000"
+
+[colors.hints.start]
+background = "#e0af68"
+foreground = "#000000"
+
+[colors.hints.end]
+background = "#3b4261"
+foreground = "#c0caf5"
+
+[colors.line_indicator]
+foreground = "None"
+background = "None"
+
+[colors.footer_bar]
+background = "#0a0a0f"
+foreground = "#c0caf5"
+
+[colors.selection]
+background = "#283457"
+text = "#c0caf5"
 
 # Normal colors
 [colors.normal]
-black   = "#1a1a1a"
-red     = "#b00000"     # Error color
-green   = "#50c878"     # Success color
-yellow  = "#d4af37"     # Primary color
-blue    = "#0f52ba"     # Info color
-magenta = "#ba55d3"
-cyan    = "#00ced1"
-white   = "#f8f6f0"     # Normal text
+black = "#15161e"
+red = "#f7768e"
+green = "#9ece6a"
+yellow = "#e0af68"
+blue = "#7aa2f7"
+magenta = "#bb9af7"
+cyan = "#7dcfff"
+white = "#a9b1d6"
 
 # Bright colors
 [colors.bright]
-black   = "#4a4a4a"
-red     = "#ff3333"
-green   = "#7cfc00"
-yellow  = "#ffd700"
-blue    = "#4169e1"
-magenta = "#da70d6"
-cyan    = "#00ffff"
-white   = "#ffffff"
+black = "#3b4261"
+red = "#f7768e"
+green = "#9ece6a"
+yellow = "#e0af68"
+blue = "#7aa2f7"
+magenta = "#bb9af7"
+cyan = "#7dcfff"
+white = "#c0caf5"
 
-# Dim colors (used for inactive text)
+# Dim colors
 [colors.dim]
-black   = "#0a0a0a"
-red     = "#800000"
-green   = "#3a8a5f"
-yellow  = "#9a8028"
-blue    = "#0a3a7a"
-magenta = "#8a3a9a"
-cyan    = "#007a8a"
-white   = "#a5a9b4"     # Border color
+black = "#101014"
+red = "#c5616e"
+green = "#7da854"
+yellow = "#b38c53"
+blue = "#6182c5"
+magenta = "#967bc5"
+cyan = "#64a6cc"
+white = "#878d9e"
+
+# ══════════════════════════════════════════════════════════════════════════════
+# KEYBOARD BINDINGS
+# ══════════════════════════════════════════════════════════════════════════════
 
 [keyboard]
-# Default keybindings are fine, let Zellij/Neovim handle most
-
-[[keyboard.bindings]]
-key = "V"
-mods = "Control|Shift"
-action = "Paste"
-
-[[keyboard.bindings]]
-key = "C"
-mods = "Control|Shift"
-action = "Copy"
-
-[[keyboard.bindings]]
-key = "Plus"
-mods = "Control"
-action = "IncreaseFontSize"
-
-[[keyboard.bindings]]
-key = "Minus"
-mods = "Control"
-action = "DecreaseFontSize"
-
-[[keyboard.bindings]]
-key = "Key0"
-mods = "Control"
-action = "ResetFontSize"
+bindings = [
+  # Window management
+  { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" },
+  { key = "Return", mods = "Control|Shift", action = "ToggleFullscreen" },
+  
+  # Font size
+  { key = "Plus", mods = "Control", action = "IncreaseFontSize" },
+  { key = "Minus", mods = "Control", action = "DecreaseFontSize" },
+  { key = "Key0", mods = "Control", action = "ResetFontSize" },
+  
+  # Clipboard
+  { key = "C", mods = "Control|Shift", action = "Copy" },
+  { key = "V", mods = "Control|Shift", action = "Paste" },
+  
+  # Scrolling
+  { key = "PageUp", mods = "Shift", action = "ScrollPageUp" },
+  { key = "PageDown", mods = "Shift", action = "ScrollPageDown" },
+  { key = "Home", mods = "Shift", action = "ScrollToTop" },
+  { key = "End", mods = "Shift", action = "ScrollToBottom" },
+  
+  # Vi mode
+  { key = "Space", mods = "Control|Shift", action = "ToggleViMode" },
+  
+  # Search
+  { key = "F", mods = "Control|Shift", action = "SearchForward" },
+  { key = "B", mods = "Control|Shift", action = "SearchBackward" },
+]

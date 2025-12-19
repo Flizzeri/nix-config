@@ -1,7 +1,7 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                    NEOVIM CONFIG                         │
--- │            Polished • Minimal • Cohesive                 │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭──────────────────────────────────────────────────────────────────────────╮
+-- │                              Neovim Config                               │
+-- │                        Clean • Polished • Minimal                        │
+-- ╰──────────────────────────────────────────────────────────────────────────╯
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -14,19 +14,15 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Leader keys (must be set before lazy)
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
-
--- Core options
+-- Load core settings first
 require("core.options")
 require("core.keymaps")
 require("core.autocmds")
 
--- Plugin manager
+-- Initialize plugins
 require("lazy").setup("plugins", {
-  defaults = { lazy = true },
-  install = { colorscheme = { "obsidian" } },
+  defaults = { lazy = false },
+  install = { colorscheme = { "tokyonight" } },
   checker = { enabled = false },
   change_detection = { notify = false },
   performance = {
@@ -39,10 +35,6 @@ require("lazy").setup("plugins", {
   },
   ui = {
     border = "rounded",
-    title = " 󰒲 Lazy ",
     backdrop = 100,
   },
 })
-
--- Load colorscheme after plugins
-vim.cmd.colorscheme("obsidian")

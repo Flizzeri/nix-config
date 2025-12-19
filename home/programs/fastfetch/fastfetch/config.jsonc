@@ -1,94 +1,171 @@
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
-  "display": {
-    "separator": "  ",
-    "size": {
-      "binaryPrefix": "iec"
-    }
-  },
+
+  // ╭──────────────────────────────────────────────────────────────────────────╮
+  // │                              Fastfetch                                   │
+  // │                       Clean • Minimal • Polished                         │
+  // ╰──────────────────────────────────────────────────────────────────────────╯
+
   "logo": {
+    "type": "auto",
     "padding": {
       "top": 1,
       "left": 2,
       "right": 3
+    },
+    "color": {
+      "1": "blue",
+      "2": "cyan"
     }
   },
+
+  "display": {
+    "separator": "  ",
+    "color": {
+      "keys": "blue",
+      "title": "cyan"
+    },
+    "key": {
+      "width": 12
+    },
+    "percent": {
+      "type": 1
+    },
+    "bar": {
+      "charElapsed": "━",
+      "charTotal": "─",
+      "width": 12
+    }
+  },
+
   "modules": [
+    // ── Header ────────────────────────────────────────────────────────────────
     {
       "type": "custom",
-      "format": "┌─────────────────────────────────────────────┐"
+      "format": "┌────────────────────────────────────────────────┐"
     },
     {
       "type": "title",
-      "format": "│ {#7aa2f7} {user-name}{#414868}@{#bb9af7}{host-name}"
+      "format": "│  {#cyan}{user-name}{#reset}@{#blue}{host-name}{#reset}",
+      "key": " "
     },
     {
       "type": "custom",
-      "format": "├─────────────────────────────────────────────┤"
+      "format": "├────────────────────────────────────────────────┤"
     },
+
+    // ── System ────────────────────────────────────────────────────────────────
     {
       "type": "os",
-      "key": "│ {#7aa2f7}󰣇  OS",
+      "key": "│  {#blue}󰍹{#reset}  OS",
       "format": "{pretty-name}"
     },
     {
       "type": "kernel",
-      "key": "│ {#bb9af7}  Kernel",
+      "key": "│  {#blue}{#reset}  Kernel",
       "format": "{release}"
     },
     {
       "type": "uptime",
-      "key": "│ {#9ece6a}󰅐  Uptime",
+      "key": "│  {#blue}󰅐{#reset}  Uptime",
       "format": "{days}d {hours}h {minutes}m"
     },
     {
       "type": "packages",
-      "key": "│ {#e0af68}󰏖  Packages"
+      "key": "│  {#blue}󰏖{#reset}  Packages",
+      "format": "{all}"
     },
+
+    // ── Separator ─────────────────────────────────────────────────────────────
     {
-      "type": "shell",
-      "key": "│ {#7dcfff}  Shell",
-      "format": "{pretty-name} {version}"
+      "type": "custom",
+      "format": "│"
     },
+
+    // ── Desktop ───────────────────────────────────────────────────────────────
     {
-      "type": "terminal",
-      "key": "│ {#f7768e}  Terminal",
+      "type": "wm",
+      "key": "│  {#magenta}󰖲{#reset}  WM",
       "format": "{pretty-name}"
     },
     {
+      "type": "terminal",
+      "key": "│  {#magenta}{#reset}  Terminal",
+      "format": "{pretty-name}"
+    },
+    {
+      "type": "shell",
+      "key": "│  {#magenta}󰞷{#reset}  Shell",
+      "format": "{pretty-name} {version}"
+    },
+    {
+      "type": "font",
+      "key": "│  {#magenta}󰛖{#reset}  Font",
+      "format": "{combined}"
+    },
+
+    // ── Separator ─────────────────────────────────────────────────────────────
+    {
       "type": "custom",
-      "format": "├─────────────────────────────────────────────┤"
+      "format": "│"
+    },
+
+    // ── Hardware ──────────────────────────────────────────────────────────────
+    {
+      "type": "host",
+      "key": "│  {#yellow}󰌢{#reset}  Host",
+      "format": "{name}"
     },
     {
       "type": "cpu",
-      "key": "│ {#7aa2f7}󰻠  CPU",
+      "key": "│  {#yellow}󰻠{#reset}  CPU",
       "format": "{name}"
     },
     {
       "type": "gpu",
-      "key": "│ {#9ece6a}󰢮  GPU",
+      "key": "│  {#yellow}󰢮{#reset}  GPU",
       "format": "{name}"
     },
     {
       "type": "memory",
-      "key": "│ {#bb9af7}󰍛  Memory",
+      "key": "│  {#yellow}󰍛{#reset}  Memory",
       "format": "{used} / {total} ({percentage})"
     },
     {
       "type": "disk",
-      "key": "│ {#e0af68}󰋊  Disk",
-      "format": "{size-used} / {size-total} ({size-percentage})",
+      "key": "│  {#yellow}󰋊{#reset}  Disk",
+      "format": "{used} / {total} ({percentage})",
       "folders": "/"
     },
+
+    // ── Separator ─────────────────────────────────────────────────────────────
     {
       "type": "custom",
-      "format": "└─────────────────────────────────────────────┘"
+      "format": "│"
     },
-    "break",
+
+    // ── Network ───────────────────────────────────────────────────────────────
+    {
+      "type": "localip",
+      "key": "│  {#green}󰖟{#reset}  Local IP",
+      "format": "{ipv4}"
+    },
+
+    // ── Footer ────────────────────────────────────────────────────────────────
+    {
+      "type": "custom",
+      "format": "└────────────────────────────────────────────────┘"
+    },
+
+    // ── Colors ────────────────────────────────────────────────────────────────
+    {
+      "type": "custom",
+      "format": ""
+    },
     {
       "type": "colors",
-      "paddingLeft": 4,
-      "symbol": "block"
+      "symbol": "circle",
+      "paddingLeft": 4
     }
   ]
 }
