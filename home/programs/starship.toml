@@ -6,65 +6,66 @@ command_timeout = 500
 # Single line prompt, no newline before
 add_newline = false
 
+# Gradient: magenta (#bb9af7) → purple (#9d7cd8) → indigo (#7aa2f7) → cyan (#7dcfff)
 format = """
-[](#e0af68)\
+[](#bb9af7)\
 $directory\
-[](fg:#e0af68 bg:#7aa2f7)\
+[](fg:#bb9af7 bg:#9d7cd8)\
 $git_branch\
-[](fg:#7aa2f7 bg:#73daca)\
+[](fg:#9d7cd8 bg:#7aa2f7)\
 $nodejs\
 $rust\
 $python\
 $golang\
 $c\
 $lua\
-[](fg:#73daca bg:#f7768e)\
+[](fg:#7aa2f7 bg:#7dcfff)\
 $git_status\
-[ ](fg:#f7768e)\
+[](fg:#7dcfff)\
 $character"""
 
 [character]
-success_symbol = "[:](bold #c0caf5)"
+success_symbol = "[:](bold #a9b1d6)"
 error_symbol = "[:](bold #f7768e)"
 format = "$symbol "
 
 [directory]
-style = "fg:#1a1b26 bg:#e0af68"
+style = "fg:#1a1b26 bg:#bb9af7"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
 
 [git_branch]
-style = "fg:#1a1b26 bg:#7aa2f7"
+style = "fg:#1a1b26 bg:#9d7cd8"
 format = "[ $symbol $branch ]($style)"
 
-# Language versions (single Tokyo Night green segment)
+# Language versions (indigo/blue segment)
 [nodejs]
-style = "fg:#1a1b26 bg:#73daca"
+style = "fg:#1a1b26 bg:#7aa2f7"
 format = "[ $symbol$version ]($style)"
 
 [rust]
-style = "fg:#1a1b26 bg:#73daca"
+style = "fg:#1a1b26 bg:#7aa2f7"
 format = "[ $symbol$version ]($style)"
 
 [python]
-style = "fg:#1a1b26 bg:#73daca"
+style = "fg:#1a1b26 bg:#7aa2f7"
 format = "[ $symbol$version ]($style)"
 
 [golang]
-style = "fg:#1a1b26 bg:#73daca"
+style = "fg:#1a1b26 bg:#7aa2f7"
 format = "[ $symbol$version ]($style)"
 
 [c]
-style = "fg:#1a1b26 bg:#73daca"
+style = "fg:#1a1b26 bg:#7aa2f7"
 format = "[ $symbol$version ]($style)"
 
 [lua]
-style = "fg:#1a1b26 bg:#73daca"
+style = "fg:#1a1b26 bg:#7aa2f7"
 format = "[ $symbol$version ]($style)"
 
 [git_status]
-style = "fg:#1a1b26 bg:#f7768e"
+style = "fg:#1a1b26 bg:#7dcfff"
 format = "[ $all_status$ahead_behind ]($style)"
 conflicted = "="
 ahead = "⇡${count}"
@@ -175,4 +176,3 @@ disabled = true
 
 [zig] 
 disabled = true
-
