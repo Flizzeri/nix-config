@@ -1,175 +1,57 @@
-{
-  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
-
-  // ╭──────────────────────────────────────────────────────────────────────────╮
-  // │                              Fastfetch                                   │
-  // │                       Clean • Minimal • Polished                         │
-  // ╰──────────────────────────────────────────────────────────────────────────╯
-
-  "logo": {
-    "type": "auto",
-    "padding": {
-      "top": 1,
-      "left": 2,
-      "right": 3
-    },
-    "color": {
-      "1": "blue",
-      "2": "cyan"
-    }
+{"modules": [
+  // ── User ─────────────────────────────────────────
+  { "type": "custom", "format": "┌────────────────────────" },
+  {
+    "type": "title",
+    "key": "│",
+    "format": "  {#cyan}{user-name}{#}@{#blue}{host-name}{#}"
   },
+  { "type": "custom", "format": "└────────────────────────" },
 
-  "display": {
-    "separator": "  ",
-    "color": {
-      "keys": "blue",
-      "title": "cyan"
-    },
-    "key": {
-      "width": 12
-    },
-    "percent": {
-      "type": 1
-    },
-    "bar": {
-      "char": {
-        "elapsed": "━",
-        "total": "─"
-      },
-      "width": 12
-    }
+  { "type": "custom", "format": "" },
+
+  // ── System ────────────────────────────────────────
+  { "type": "custom", "format": "┌────────────────────────" },
+  { "type": "os",       "key": "│  {#blue}󰍹{#}  OS",       "format": "{pretty-name}" },
+  { "type": "kernel",   "key": "│  {#blue}󰒔{#}  Kernel",   "format": "{release}" },
+  { "type": "uptime",   "key": "│  {#blue}󰅐{#}  Uptime",   "format": "{days}d {hours}h {minutes}m" },
+  { "type": "packages", "key": "│  {#blue}󰏖{#}  Packages", "format": "{all}" },
+  { "type": "custom", "format": "└────────────────────────" },
+
+  { "type": "custom", "format": "" },
+
+  // ── Desktop ───────────────────────────────────────
+  { "type": "custom", "format": "┌────────────────────────" },
+  { "type": "wm",       "key": "│  {#magenta}󰖲{#}  WM",       "format": "{pretty-name}" },
+  { "type": "terminal", "key": "│  {#magenta}{#}  Terminal", "format": "{pretty-name}" },
+  { "type": "shell",    "key": "│  {#magenta}󰞷{#}  Shell",    "format": "{pretty-name} {version}" },
+  { "type": "font",     "key": "│  {#magenta}󰛖{#}  Font",     "format": "{combined}" },
+  { "type": "custom", "format": "└────────────────────────" },
+
+  { "type": "custom", "format": "" },
+
+  // ── Hardware ──────────────────────────────────────
+  { "type": "custom", "format": "┌────────────────────────" },
+  { "type": "host",   "key": "│  {#yellow}󰌢{#}  Host",   "format": "{name}" },
+  { "type": "cpu",    "key": "│  {#yellow}󰻠{#}  CPU",    "format": "{name}" },
+  { "type": "gpu",    "key": "│  {#yellow}󰢮{#}  GPU",    "format": "{name}" },
+  { "type": "memory", "key": "│  {#yellow}󰍛{#}  Memory", "format": "{used} / {total} ({percentage})" },
+  {
+    "type": "disk",
+    "key": "│  {#yellow}󰋊{#}  Disk",
+    "folders": ["/"],
+    "format": "{size-used} / {size-total} ({size-percentage})"
   },
+  { "type": "custom", "format": "└────────────────────────" },
 
-  "modules": [
-    // ── Header ────────────────────────────────────────────────────────────────
-    {
-      "type": "custom",
-      "format": "┌────────────────────────────────────────────────┐"
-    },
-    {
-      "type": "title",
-      "format": "│  {#cyan}{user-name}{#}@{#blue}{host-name}{#}",
-      "key": " "
-    },
-    {
-      "type": "custom",
-      "format": "├────────────────────────────────────────────────┤"
-    },
+  { "type": "custom", "format": "" },
 
-    // ── System ────────────────────────────────────────────────────────────────
-    {
-      "type": "os",
-      "key": "│  {#blue}󰍹{#}  OS",
-      "format": "{pretty-name}"
-    },
-    {
-      "type": "kernel",
-      "key": "│  {#blue}{#}  Kernel",
-      "format": "{release}"
-    },
-    {
-      "type": "uptime",
-      "key": "│  {#blue}󰅐{#}  Uptime",
-      "format": "{days}d {hours}h {minutes}m"
-    },
-    {
-      "type": "packages",
-      "key": "│  {#blue}󰏖{#}  Packages",
-      "format": "{all}"
-    },
+  // ── Network ───────────────────────────────────────
+  { "type": "custom", "format": "┌────────────────────────" },
+  { "type": "localip", "key": "│  {#green}󰖟{#}  Local IP", "format": "{ipv4}" },
+  { "type": "custom", "format": "└────────────────────────" },
 
-    // ── Separator ─────────────────────────────────────────────────────────────
-    {
-      "type": "custom",
-      "format": "│"
-    },
-
-    // ── Desktop ───────────────────────────────────────────────────────────────
-    {
-      "type": "wm",
-      "key": "│  {#magenta}󰖲{#}  WM",
-      "format": "{pretty-name}"
-    },
-    {
-      "type": "terminal",
-      "key": "│  {#magenta}{#}  Terminal",
-      "format": "{pretty-name}"
-    },
-    {
-      "type": "shell",
-      "key": "│  {#magenta}󰞷{#}  Shell",
-      "format": "{pretty-name} {version}"
-    },
-    {
-      "type": "font",
-      "key": "│  {#magenta}󰛖{#}  Font",
-      "format": "{combined}"
-    },
-
-    // ── Separator ─────────────────────────────────────────────────────────────
-    {
-      "type": "custom",
-      "format": "│"
-    },
-
-    // ── Hardware ──────────────────────────────────────────────────────────────
-    {
-      "type": "host",
-      "key": "│  {#yellow}󰌢{#}  Host",
-      "format": "{name}"
-    },
-    {
-      "type": "cpu",
-      "key": "│  {#yellow}󰻠{#}  CPU",
-      "format": "{name}"
-    },
-    {
-      "type": "gpu",
-      "key": "│  {#yellow}󰢮{#}  GPU",
-      "format": "{name}"
-    },
-    {
-      "type": "memory",
-      "key": "│  {#yellow}󰍛{#}  Memory",
-      "format": "{used} / {total} ({percentage})"
-    },
-    {
-      "type": "disk",
-      "key": "│  {#yellow}󰋊{#}  Disk",
-      "format": "{used} / {total} ({percentage})",
-      "folders": "/"
-    },
-
-    // ── Separator ─────────────────────────────────────────────────────────────
-    {
-      "type": "custom",
-      "format": "│"
-    },
-
-    // ── Network ───────────────────────────────────────────────────────────────
-    {
-      "type": "localip",
-      "key": "│  {#green}󰖟{#}  Local IP",
-      "format": "{ipv4}"
-    },
-
-    // ── Footer ────────────────────────────────────────────────────────────────
-    {
-      "type": "custom",
-      "format": "└────────────────────────────────────────────────┘"
-    },
-
-    // ── Colors ────────────────────────────────────────────────────────────────
-    {
-      "type": "custom",
-      "format": ""
-    },
-    {
-      "type": "colors",
-      "symbol": "circle",
-      "paddingLeft": 4
-    }
-  ]
-}
-
+  { "type": "custom", "format": "" },
+  { "type": "colors", "symbol": "circle", "paddingLeft": 4 }
+]}
 
