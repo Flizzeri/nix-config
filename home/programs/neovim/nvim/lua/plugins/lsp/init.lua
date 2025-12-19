@@ -3,7 +3,7 @@
 -- ╰──────────────────────────────────────────────────────────────────────────╯
 
 return {
-  -- ── Core LSP Config ───────────────────────────────────────────────────────
+  -- ── Core LSP Config (Neovim 0.11+ vim.lsp.config / vim.lsp.enable) ─────────
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },
@@ -46,28 +46,26 @@ return {
       })
 
       -- LSP handlers with rounded borders
-      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-        vim.lsp.handlers.hover,
-        { border = "rounded" }
-      )
-      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-        vim.lsp.handlers.signature_help,
-        { border = "rounded" }
-      )
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+      vim.lsp.handlers["textDocument/signatureHelp"] =
+        vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
-      -- Default capabilities
+      -- Default capabilities (nvim-cmp)
       local capabilities = vim.tbl_deep_extend(
         "force",
         vim.lsp.protocol.make_client_capabilities(),
         require("cmp_nvim_lsp").default_capabilities()
       )
 
-      -- Setup servers (languages provided by nix/direnv)
-      local lspconfig = require("lspconfig")
+      -- Helper to register config overrides
+      local function lsp(name, opts)
+        opts = opts or {}
+        opts.capabilities = capabilities
+        vim.lsp.config(name, opts)
+      end
 
       -- Lua (for neovim config)
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
+      lsp("lua_ls", {
         settings = {
           Lua = {
             runtime = { version = "LuaJIT" },
@@ -83,8 +81,7 @@ return {
       })
 
       -- Nix
-      lspconfig.nil_ls.setup({
-        capabilities = capabilities,
+      lsp("nil_ls", {
         settings = {
           ["nil"] = {
             formatting = { command = { "nixfmt" } },
@@ -93,8 +90,7 @@ return {
       })
 
       -- Go
-      lspconfig.gopls.setup({
-        capabilities = capabilities,
+      lsp("gopls", {
         settings = {
           gopls = {
             analyses = {
@@ -117,8 +113,7 @@ return {
       })
 
       -- Python
-      lspconfig.pyright.setup({
-        capabilities = capabilities,
+      lsp("pyright", {
         settings = {
           python = {
             analysis = {
@@ -130,9 +125,28 @@ return {
         },
       })
 
+      -- TypeScript / JavaScript (ts_ls via typescript-language-server)
+      -- Note: these are the closest equivalents to your previous tsserver_* preferences.
+      lsp("ts_ls", {
+        init_options = {
+          hostInfo = "neovim",
+          preferences = {
+            includeInlayParameterNameHints = "all",
+            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayVariableTypeHints = true,
+            includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+            includeInlayEnumMemberValueHints = true,
+            includeCompletionsForModuleExports = true,
+            quotePreference = "auto",
+          },
+        },
+      })
+
       -- JSON
-      lspconfig.jsonls.setup({
-        capabilities = capabilities,
+      lsp("jsonls", {
         settings = {
           json = {
             validate = { enable = true },
@@ -141,8 +155,7 @@ return {
       })
 
       -- YAML
-      lspconfig.yamlls.setup({
-        capabilities = capabilities,
+      lsp("yamlls", {
         settings = {
           yaml = {
             keyOrdering = false,
@@ -151,29 +164,38 @@ return {
       })
 
       -- TOML
-      lspconfig.taplo.setup({
-        capabilities = capabilities,
-      })
+      lsp("taplo", {})
 
       -- CSS/SCSS
-      lspconfig.cssls.setup({
-        capabilities = capabilities,
-      })
+      lsp("cssls", {})
 
       -- HTML
-      lspconfig.html.setup({
-        capabilities = capabilities,
-      })
+      lsp("html", {})
 
       -- Docker
-      lspconfig.dockerls.setup({
-        capabilities = capabilities,
-      })
+      lsp("dockerls", {})
 
       -- Bash
-      lspconfig.bashls.setup({
-        capabilities = capabilities,
-      })
+      lsp("bashls", {})
+
+      -- Enable configs (activates on matching filetypes)
+      -- Rust is handled by rustaceanvim below, so we do NOT enable rust_analyzer here.
+      for _, name in ipairs({
+        "lua_ls",
+        "nil_ls",
+        "gopls",
+        "pyright",
+        "ts_ls",
+        "jsonls",
+        "yamlls",
+        "taplo",
+        "cssls",
+        "html",
+        "dockerls",
+        "bashls",
+      }) do
+        vim.lsp.enable(name)
+      end
     end,
   },
 
@@ -230,36 +252,6 @@ return {
     end,
   },
 
-  -- ── TypeScript ────────────────────────────────────────────────────────────
-  {
-    "pmizio/typescript-tools.nvim",
-    ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    opts = {
-      settings = {
-        separate_diagnostic_server = true,
-        publish_diagnostic_on = "insert_leave",
-        expose_as_code_action = "all",
-        tsserver_file_preferences = {
-          includeInlayParameterNameHints = "all",
-          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-          includeInlayFunctionParameterTypeHints = true,
-          includeInlayVariableTypeHints = true,
-          includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-          includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-          includeInlayEnumMemberValueHints = true,
-          includeCompletionsForModuleExports = true,
-          quotePreference = "auto",
-        },
-        tsserver_format_options = {
-          allowIncompleteCompletions = false,
-          allowRenameOfImportPath = false,
-        },
-      },
-    },
-  },
-
   -- ── Signature Help ────────────────────────────────────────────────────────
   {
     "ray-x/lsp_signature.nvim",
@@ -291,3 +283,4 @@ return {
     end,
   },
 }
+

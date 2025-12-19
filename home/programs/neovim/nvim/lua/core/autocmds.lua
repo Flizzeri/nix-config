@@ -6,7 +6,7 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
 -- ── General Settings ────────────────────────────────────────────────────────
-local general = augroup("General", { clear = true })
+local general = augroup("userGeneral", { clear = true })
 
 -- Highlight on yank
 autocmd("TextYankPost", {
@@ -50,7 +50,7 @@ autocmd("FileType", {
 })
 
 -- ── File-specific Settings ──────────────────────────────────────────────────
-local filetype = augroup("FileType", { clear = true })
+local filetype = augroup("UserFileType", { clear = true })
 
 -- Set wrap and spell for text files
 autocmd("FileType", {
@@ -72,7 +72,7 @@ autocmd({ "BufRead", "BufNewFile" }, {
 })
 
 -- ── LSP Attach ──────────────────────────────────────────────────────────────
-local lsp_group = augroup("LspAttach", { clear = true })
+local lsp_group = augroup("UserLspAttach", { clear = true })
 
 autocmd("LspAttach", {
   group = lsp_group,
