@@ -32,8 +32,10 @@
       "type": 1
     },
     "bar": {
-      "charElapsed": "━",
-      "charTotal": "─",
+      "char": {
+        "elapsed": "━",
+        "total": "─"
+      },
       "width": 12
     }
   },
@@ -46,7 +48,7 @@
     },
     {
       "type": "title",
-      "format": "│  {#cyan}{user-name}{#reset}@{#blue}{host-name}{#reset}",
+      "format": "│  {#cyan}{user-name}{#}@{#blue}{host-name}{#}",
       "key": " "
     },
     {
@@ -57,22 +59,22 @@
     // ── System ────────────────────────────────────────────────────────────────
     {
       "type": "os",
-      "key": "│  {#blue}󰍹{#reset}  OS",
+      "key": "│  {#blue}󰍹{#}  OS",
       "format": "{pretty-name}"
     },
     {
       "type": "kernel",
-      "key": "│  {#blue}{#reset}  Kernel",
+      "key": "│  {#blue}{#}  Kernel",
       "format": "{release}"
     },
     {
       "type": "uptime",
-      "key": "│  {#blue}󰅐{#reset}  Uptime",
+      "key": "│  {#blue}󰅐{#}  Uptime",
       "format": "{days}d {hours}h {minutes}m"
     },
     {
       "type": "packages",
-      "key": "│  {#blue}󰏖{#reset}  Packages",
+      "key": "│  {#blue}󰏖{#}  Packages",
       "format": "{all}"
     },
 
@@ -85,22 +87,22 @@
     // ── Desktop ───────────────────────────────────────────────────────────────
     {
       "type": "wm",
-      "key": "│  {#magenta}󰖲{#reset}  WM",
+      "key": "│  {#magenta}󰖲{#}  WM",
       "format": "{pretty-name}"
     },
     {
       "type": "terminal",
-      "key": "│  {#magenta}{#reset}  Terminal",
+      "key": "│  {#magenta}{#}  Terminal",
       "format": "{pretty-name}"
     },
     {
       "type": "shell",
-      "key": "│  {#magenta}󰞷{#reset}  Shell",
+      "key": "│  {#magenta}󰞷{#}  Shell",
       "format": "{pretty-name} {version}"
     },
     {
       "type": "font",
-      "key": "│  {#magenta}󰛖{#reset}  Font",
+      "key": "│  {#magenta}󰛖{#}  Font",
       "format": "{combined}"
     },
 
@@ -113,27 +115,27 @@
     // ── Hardware ──────────────────────────────────────────────────────────────
     {
       "type": "host",
-      "key": "│  {#yellow}󰌢{#reset}  Host",
+      "key": "│  {#yellow}󰌢{#}  Host",
       "format": "{name}"
     },
     {
       "type": "cpu",
-      "key": "│  {#yellow}󰻠{#reset}  CPU",
+      "key": "│  {#yellow}󰻠{#}  CPU",
       "format": "{name}"
     },
     {
       "type": "gpu",
-      "key": "│  {#yellow}󰢮{#reset}  GPU",
+      "key": "│  {#yellow}󰢮{#}  GPU",
       "format": "{name}"
     },
     {
       "type": "memory",
-      "key": "│  {#yellow}󰍛{#reset}  Memory",
+      "key": "│  {#yellow}󰍛{#}  Memory",
       "format": "{used} / {total} ({percentage})"
     },
     {
       "type": "disk",
-      "key": "│  {#yellow}󰋊{#reset}  Disk",
+      "key": "│  {#yellow}󰋊{#}  Disk",
       "format": "{used} / {total} ({percentage})",
       "folders": "/"
     },
@@ -147,7 +149,7 @@
     // ── Network ───────────────────────────────────────────────────────────────
     {
       "type": "localip",
-      "key": "│  {#green}󰖟{#reset}  Local IP",
+      "key": "│  {#green}󰖟{#}  Local IP",
       "format": "{ipv4}"
     },
 
@@ -169,3 +171,5 @@
     }
   ]
 }
+
+
