@@ -1,11 +1,14 @@
 { config, pkgs, lib, ... }:
 
 let
-  pubKey = lib.strings.trimString (builtins.readFile ../../keys/authorized/macbook_workstation_flizzeri.pub);
+  pubKey = lib.strings.removeSuffix "\n"
+    (builtins.readFile ../../keys/authorized/macbook_workstation_flizzeri.pub);
 in
 {
   services.openssh = {
     enable = true;
+
+    openFirewall = true;
 
     settings = {
       # Keys only.
@@ -16,13 +19,11 @@ in
       PermitRootLogin = "no";
 
       X11Forwarding = false;
+
+      AllowUsers = "Flizzeri";
     };
   };
 
-  # Install authorized key for that user
   users.users.Flizzeri.openssh.authorizedKeys.keys = [ pubKey ];
-
-  # Allow inbound SSH on the LAN
-  networking.firewall.allowedTCPPorts = [ 22 ];
 }
 
