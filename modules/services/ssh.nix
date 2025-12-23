@@ -20,7 +20,7 @@ in
 
       X11Forwarding = false;
 
-      AllowUsers = "Flizzeri";
+      AllowUsers = [ "Flizzeri" ];
     };
   };
 
