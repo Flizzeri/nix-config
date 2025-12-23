@@ -17,8 +17,6 @@ in
 
       X11Forwarding = false;
     };
-
-    allowUsers = [ "Flizzeri" ];
   };
 
   # Install authorized key for that user
