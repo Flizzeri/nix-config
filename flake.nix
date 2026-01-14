@@ -77,6 +77,7 @@
           web-ts = import ./devshells/web-ts.nix { inherit pkgs; };
           python = import ./devshells/python.nix { inherit pkgs; };
           go     = import ./devshells/go.nix     { inherit pkgs; };
+          nix    = import ./devshells/nix.nix    { inherit pkgs; };
           default = pkgs.mkShell { packages = with pkgs; [ git ripgrep fd jq ]; };
         };
 
@@ -87,6 +88,7 @@
           web-ts = import ./devshells/web-ts.nix { inherit pkgs; };
           python = import ./devshells/python.nix { inherit pkgs; };
           go     = import ./devshells/go.nix     { inherit pkgs; };
+          nix    = import ./devshells/nix.nix    { inherit pkgs; };
           default = pkgs.mkShell { packages = with pkgs; [ git ripgrep fd jq ]; };
         };
     };
