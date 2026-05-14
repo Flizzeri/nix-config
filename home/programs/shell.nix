@@ -1,5 +1,10 @@
 # home/programs/zsh.nix
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   init = lib.concatStringsSep "\n" [
@@ -29,6 +34,10 @@ let
         local file
         file=$(fd --type f --hidden --exclude .git | fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}')
         [ -n "$file" ] && nvim "$file"
+      }
+
+      tree() {
+        eza --tree --icons --git-ignore "$@"
       }
     ''
 
@@ -85,7 +94,6 @@ in
       ll = "eza -lah --icons --git";
       la = "eza -a --icons";
       ls = "eza --icons";
-      tree = "eza --tree --icons";
 
       ".." = "cd ..";
       "..." = "cd ../..";
@@ -126,4 +134,3 @@ in
 
   xdg.configFile."starship.toml".source = ./starship.toml;
 }
-

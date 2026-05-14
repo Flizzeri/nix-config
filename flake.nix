@@ -95,6 +95,7 @@
             go = import ./devshells/go.nix { inherit pkgs; };
             nix = import ./devshells/nix.nix { inherit pkgs; };
             adtk = import ./devshells/adtk.nix { inherit pkgs; };
+            bun-ts = import ./devshells/bun-ts.nix { inherit pkgs; };
             default = pkgs.mkShell {
               packages = with pkgs; [
                 git
@@ -119,6 +120,7 @@
             go = import ./devshells/go.nix { inherit pkgs; };
             nix = import ./devshells/nix.nix { inherit pkgs; };
             adtk = import ./devshells/adtk.nix { inherit pkgs; };
+            bun-ts = import ./devshells/bun-ts.nix { inherit pkgs; };
             default = pkgs.mkShell {
               packages = with pkgs; [
                 git
