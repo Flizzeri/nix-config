@@ -1,4 +1,10 @@
-{ config, pkgs, isDarwin ? false, isLinux ? false, ... }:
+{
+  config,
+  pkgs,
+  isDarwin ? false,
+  isLinux ? false,
+  ...
+}:
 
 let
   # GNU toolchain utilities for macOS (BSD userland differs)
@@ -26,13 +32,15 @@ let
     zip
     wget
     curl
+
+    scc
   ];
 in
 {
   home.packages =
     commonCli
     # On Linux these are usually already around.
-    ++ (if isDarwin then gnuUserland else []);
+    ++ (if isDarwin then gnuUserland else [ ]);
 
   programs.bat.enable = true;
   programs.eza.enable = true;
@@ -42,4 +50,3 @@ in
   # Helpful: make man pages work nicely on macOS too
   programs.man.enable = true;
 }
-

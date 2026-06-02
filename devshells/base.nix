@@ -22,6 +22,8 @@ pkgs.mkShell {
 
     # Dockerfile
     hadolint
+
+    # SQL
+    pgformatter
   ];
 }
-

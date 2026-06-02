@@ -7,8 +7,10 @@ pkgs.mkShell {
 
   packages = with pkgs; [
     bun
+    biome
     nodePackages_latest.typescript
     nodePackages_latest.typescript-language-server
-    biome
+    postgresql.out
+    pgformatter
   ];
 }

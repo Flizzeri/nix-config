@@ -20,6 +20,14 @@ return {
 		},
 
 		opts = {
+			formatters = {
+				pg_format = {
+					command = "pg_format",
+					args = { "-" },
+					stdin = true,
+				},
+			},
+
 			formatters_by_ft = {
 				lua = { "stylua" },
 
@@ -107,6 +115,8 @@ return {
 				sh = { "shfmt" },
 				bash = { "shfmt" },
 
+				sql = { "pg_format" },
+
 				toml = { "taplo" },
 
 				["_"] = { "trim_whitespace" },
@@ -146,16 +156,18 @@ return {
 
 		config = function()
 			local lint = require("lint")
+			local has_biome = vim.fn.executable("biome") == 1
 
 			lint.linters_by_ft = {
+
 				lua = { "luacheck" },
 
 				python = { "ruff" },
 
-				javascript = { "biomejs", "eslint_d" },
-				javascriptreact = { "biomejs", "eslint_d" },
-				typescript = { "biomejs", "eslint_d" },
-				typescriptreact = { "biomejs", "eslint_d" },
+				javascript = has_biome and { "biomejs" } or { "eslint_d" },
+				javascriptreact = has_biome and { "biomejs" } or { "eslint_d" },
+				typescript = has_biome and { "biomejs" } or { "eslint_d" },
+				typescriptreact = has_biome and { "biomejs" } or { "eslint_d" },
 
 				sh = { "shellcheck" },
 				bash = { "shellcheck" },
