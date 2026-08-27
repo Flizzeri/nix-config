@@ -7,7 +7,7 @@
 
 let
   pubKey = lib.strings.removeSuffix "\n" (
-    builtins.readFile ../../keys/hosts/workstation_flizzeri.pub
+    builtins.readFile ../../keys/hosts/workstation_flizzeri_ed25519.pub
   );
 in
 {

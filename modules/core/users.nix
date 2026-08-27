@@ -18,7 +18,7 @@
     ];
 
     openssh.authorizedKeys.keyFiles = [
-      ../../keys/hosts/workstation_flizzeri.pub
+      ../../keys/hosts/workstation_flizzeri_ed25519.pub
     ];
 
     # Hashed password, decrypted from secrets/workstation.yaml at
