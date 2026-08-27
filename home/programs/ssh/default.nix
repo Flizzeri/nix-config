@@ -8,7 +8,7 @@
 let
   # Public host keys — not secret, committed as plain files under keys/.
   workstationHostKey = lib.strings.removeSuffix "\n" (
-    builtins.readFile ../../../keys/hosts/workstation_host_ed25519.pub
+    builtins.readFile ../../../keys/hosts/workstation_flizzeri_ed25519.pub
   );
 
   githubHostKey = lib.strings.removeSuffix "\n" (
