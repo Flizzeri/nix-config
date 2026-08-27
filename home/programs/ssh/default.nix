@@ -46,16 +46,6 @@ in
   programs.ssh = {
     enable = true;
 
-    knownHosts = {
-      "workstation.local" = {
-        publicKey = workstationHostKey;
-      };
-
-      "github.com" = {
-        publicKey = githubHostKey;
-      };
-    };
-
     matchBlocks = {
       "github.com" = {
         hostname = "github.com";
