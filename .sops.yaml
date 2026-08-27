@@ -1,0 +1,16 @@
+keys:
+  # Your personal age public key (from `age-keygen`).
+  # Replace this placeholder once you've generated your real key — see
+  # secrets/README.md for the exact steps.
+  - &personal age1mdkdxyy8u4q948v3vn89tcqdpsphvpffgxze4qlaamtkc230tgcq98h0ms
+
+creation_rules:
+  - path_regex: secrets/shared\.yaml$
+    key_groups:
+      - age:
+          - *personal
+
+  - path_regex: secrets/workstation\.yaml$
+    key_groups:
+      - age:
+          - *personal

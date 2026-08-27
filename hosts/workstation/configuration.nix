@@ -8,6 +8,7 @@
     ../../modules/core/nix.nix
     ../../modules/core/locale.nix
     ../../modules/core/networking.nix
+    ../../modules/core/secrets.nix
     ../../modules/core/users.nix
 
     ../../modules/services/ssh.nix
@@ -29,4 +30,3 @@
 
   system.stateVersion = "25.11";
 }
-

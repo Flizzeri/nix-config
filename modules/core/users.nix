@@ -1,9 +1,14 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  usernameLinux,
+  ...
+}:
 
 {
-  users.users.Flizzeri = {
+  users.users.${usernameLinux} = {
     isNormalUser = true;
-    description = "Flizzeri";
+    description = usernameLinux;
     shell = pkgs.zsh;
 
     # Sudo + NetworkManager control
@@ -13,12 +18,13 @@
     ];
 
     openssh.authorizedKeys.keyFiles = [
-        ../../keys/authorized/macbook_workstation_flizzeri.pub
+      ../../keys/authorized/workstation_flizzeri.pub
     ];
 
-    initialPassword = "changeme";
+    # Hashed password, decrypted from secrets/workstation.yaml at
+    # activation time. See modules/core/secrets.nix and secrets/README.md.
+    hashedPasswordFile = config.sops.secrets."${usernameLinux}-password".path;
   };
 
   security.sudo.enable = true;
 }
-

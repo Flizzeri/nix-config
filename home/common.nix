@@ -1,8 +1,16 @@
-{ config, pkgs, usernameLinux, usernameDarwin, isDarwin, isLinux, ... }:
+{
+  config,
+  pkgs,
+  usernameLinux,
+  usernameDarwin,
+  isDarwin,
+  isLinux,
+  ...
+}:
 
 let
   username = if isDarwin then usernameDarwin else usernameLinux;
-  homeDir  = if isDarwin then "/Users/${username}" else "/home/${username}";
+  homeDir = if isDarwin then "/Users/${username}" else "/home/${username}";
 in
 {
   home.username = username;
@@ -18,8 +26,8 @@ in
     ./programs/alacritty/default.nix
     ./programs/zellij/default.nix
     ./programs/fastfetch/default.nix
+    ./programs/ssh/default.nix
   ];
 
   programs.home-manager.enable = true;
 }
-

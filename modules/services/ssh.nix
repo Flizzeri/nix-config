@@ -1,8 +1,14 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
-  pubKey = lib.strings.removeSuffix "\n"
-    (builtins.readFile ../../keys/authorized/macbook_workstation_flizzeri.pub);
+  pubKey = lib.strings.removeSuffix "\n" (
+    builtins.readFile ../../keys/authorized/workstation_flizzeri.pub
+  );
 in
 {
   services.openssh = {
@@ -26,4 +32,3 @@ in
 
   users.users.Flizzeri.openssh.authorizedKeys.keys = [ pubKey ];
 }
-

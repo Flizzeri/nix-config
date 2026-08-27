@@ -11,6 +11,9 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-utils.url = "github:numtide/flake-utils";
+
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -20,6 +23,7 @@
       home-manager,
       darwin,
       flake-utils,
+      sops-nix,
       ...
     }:
     let
@@ -32,14 +36,20 @@
         hostname: system:
         lib.nixosSystem {
           inherit system;
+          specialArgs = {
+            inherit usernameLinux usernameDarwin;
+          };
           modules = [
             ./hosts/${hostname}/configuration.nix
             home-manager.nixosModules.home-manager
+            sops-nix.nixosModules.sops
             {
               nixpkgs.config.allowUnfree = true;
 
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+
+              home-manager.sharedModules = [ sops-nix.homeManagerModules.sops ];
 
               home-manager.users.${usernameLinux} = import ./home/common.nix;
               home-manager.extraSpecialArgs = {
@@ -55,6 +65,9 @@
         hostname: system:
         darwin.lib.darwinSystem {
           inherit system;
+          specialArgs = {
+            inherit usernameLinux usernameDarwin;
+          };
           modules = [
             ./hosts/${hostname}/configuration.nix
             home-manager.darwinModules.home-manager
@@ -63,6 +76,8 @@
 
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+
+              home-manager.sharedModules = [ sops-nix.homeManagerModules.sops ];
 
               home-manager.users.${usernameDarwin} = import ./home/common.nix;
               home-manager.extraSpecialArgs = {

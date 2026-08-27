@@ -7,6 +7,7 @@
 export EDITOR=nvim
 export VISUAL=nvim
 export PAGER="less -FRX"
+export SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt"
 
 # Locale
 export LANG=en_US.UTF-8
