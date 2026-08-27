@@ -15,6 +15,9 @@ pkgs.mkShell {
     lua-language-server
     stylua
     luaPackages.luacheck
+
+    # SOPS tooling
+    age
+    sops
   ];
 }
-
