@@ -16,8 +16,9 @@ pkgs.mkShell {
     stylua
     luaPackages.luacheck
 
-    # SOPS tooling
+    # Secrets (sops-nix)
     age
     sops
+    mkpasswd
   ];
 }
