@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   usernameLinux,
   usernameDarwin,
   isDarwin,
@@ -27,6 +28,9 @@ in
     ./programs/zellij/default.nix
     ./programs/fastfetch/default.nix
     ./programs/ssh/default.nix
+  ]
+  ++ lib.optionals isLinux [
+    ./programs/plasma/default.nix
   ];
 
   programs.home-manager.enable = true;
