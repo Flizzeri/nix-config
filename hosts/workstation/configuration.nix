@@ -11,6 +11,12 @@
     ../../modules/core/secrets.nix
     ../../modules/core/users.nix
 
+    ../../modules/hardware/nvidia.nix
+    ../../modules/hardware/audio.nix
+
+    ../../modules/desktop/plasma.nix
+    ../../modules/desktop/fonts.nix
+
     ../../modules/services/ssh.nix
   ];
 
