@@ -1,0 +1,53 @@
+<svg viewBox="0 0 3840 2160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="goldGlow" cx="72%" cy="82%" r="55%">
+      <stop offset="0%" stop-color="#3a2c08" stop-opacity="0.55"/>
+      <stop offset="35%" stop-color="#1a1404" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sapphireGlow" cx="18%" cy="14%" r="45%">
+      <stop offset="0%" stop-color="#061f4a" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lineGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5C4413" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#D4A017" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#5C4413" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="lineSapphire" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#072A66" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#0A3D91" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#072A66" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soften"><feGaussianBlur stdDeviation="1.2"/></filter>
+  </defs>
+
+  <rect width="3840" height="2160" fill="#000000"/>
+  <rect width="3840" height="2160" fill="url(#sapphireGlow)"/>
+  <rect width="3840" height="2160" fill="url(#goldGlow)"/>
+
+  <!-- Fine geometric horizon lines, dramatic but abstract -->
+  <g filter="url(#soften)">
+    <rect x="0" y="1400" width="3840" height="1" fill="url(#lineGold)" opacity="0.5"/>
+    <rect x="0" y="1420" width="3840" height="1" fill="url(#lineSapphire)" opacity="0.35"/>
+    <rect x="0" y="700" width="3840" height="1" fill="url(#lineSapphire)" opacity="0.25"/>
+  </g>
+
+  <!-- Sparse angular accent shapes, lower right, echoing a distant skyline/monolith -->
+  <g opacity="0.85">
+    <polygon points="2900,2160 2960,1500 3010,1500 3050,2160" fill="#0d0d0d"/>
+    <polygon points="3080,2160 3130,1650 3160,1650 3195,2160" fill="#0a0908"/>
+    <polygon points="3230,2160 3270,1780 3295,1780 3320,2160" fill="#0d0d0d"/>
+    <rect x="2955" y="1495" width="10" height="10" fill="#D4A017" opacity="0.6"/>
+    <rect x="3125" y="1645" width="8" height="8" fill="#D4A017" opacity="0.4"/>
+  </g>
+
+  <!-- Faint sapphire constellation dots, upper left -->
+  <g fill="#0A3D91" opacity="0.6">
+    <circle cx="420" cy="260" r="3"/>
+    <circle cx="520" cy="340" r="2"/>
+    <circle cx="380" cy="420" r="2.5"/>
+    <circle cx="640" cy="220" r="2"/>
+    <circle cx="300" cy="180" r="1.8"/>
+  </g>
+</svg>
