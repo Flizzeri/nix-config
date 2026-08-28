@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   fonts = {
@@ -10,7 +15,7 @@
 
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
+      noto-fonts-color-emoji
 
       liberation_ttf # metric-compatible with common Microsoft fonts, avoids layout breakage in office docs/PDFs
     ];
