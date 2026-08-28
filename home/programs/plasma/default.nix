@@ -66,6 +66,14 @@
       nightLight = {
         enable = true;
         mode = "location";
+        # "location" mode needs an explicit fixed point — NixOS can't do
+        # runtime geolocation at build/activation time. Using Milan, to
+        # match Europe/Rome in modules/core/locale.nix. Update if the
+        # workstation ever moves somewhere else.
+        location = {
+          latitude = 45.4642;
+          longitude = 9.1900;
+        };
         temperature = {
           day = 6500;
           night = 4200;

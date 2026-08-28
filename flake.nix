@@ -55,8 +55,8 @@
               home-manager.useUserPackages = true;
 
               home-manager.sharedModules = [
-                sops-nix.homeManagerModules.sops
-                plasma-manager.homeManagerModules.plasma-manager
+                sops-nix.homeModules.sops
+                plasma-manager.homeModules.plasma-manager
               ];
 
               home-manager.users.${usernameLinux} = import ./home/common.nix;
@@ -85,7 +85,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
 
-              home-manager.sharedModules = [ sops-nix.homeManagerModules.sops ];
+              home-manager.sharedModules = [ sops-nix.homeModules.sops ];
 
               home-manager.users.${usernameDarwin} = import ./home/common.nix;
               home-manager.extraSpecialArgs = {
