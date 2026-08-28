@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 # ╭──────────────────────────────────────────────────────────────────────────╮
 # │                    Plasma 6 — "Noir & Sapphire" rice                     │
@@ -52,17 +47,12 @@
       # Wayland-first, per hardware/desktop modules from Phase 2.
       titlebarButtons = {
         left = [ "on-all-desktops" ];
-        right = [
-          "minimize"
-          "maximize"
-          "close"
-        ];
+        right = [ "minimize" "maximize" "close" ];
       };
 
       effects = {
         blur.enable = true;
-        wobblyWindows.enable = false;
-        dimInactive.enable = true;
+        dimInactive = true;
 
         desktopSwitching.animation = "slide";
       };
@@ -114,7 +104,7 @@
       windowTitle = {
         family = "Noto Sans";
         pointSize = 10;
-        bold = true;
+        weight = "bold";
       };
     };
 
