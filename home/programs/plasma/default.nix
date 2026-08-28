@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 # ╭──────────────────────────────────────────────────────────────────────────╮
 # │                    Plasma 6 — "Noir & Sapphire" rice                     │
@@ -47,7 +52,11 @@
       # Wayland-first, per hardware/desktop modules from Phase 2.
       titlebarButtons = {
         left = [ "on-all-desktops" ];
-        right = [ "minimize" "maximize" "close" ];
+        right = [
+          "minimize"
+          "maximize"
+          "close"
+        ];
       };
 
       effects = {
@@ -71,8 +80,8 @@
         # match Europe/Rome in modules/core/locale.nix. Update if the
         # workstation ever moves somewhere else.
         location = {
-          latitude = 45.4642;
-          longitude = 9.1900;
+          latitude = "45.4642";
+          longitude = "9.1900";
         };
         temperature = {
           day = 6500;
