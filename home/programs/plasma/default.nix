@@ -52,9 +52,12 @@
 
       effects = {
         blur.enable = true;
-        dimInactive = true;
-
         desktopSwitching.animation = "slide";
+        # dimInactive intentionally omitted: its correct submodule shape
+        # couldn't be confirmed against source (two guesses already burned),
+        # and it's cosmetic rather than load-bearing for the panel layout.
+        # Set it later via System Settings > Desktop Effects if you want it,
+        # or provide the exact shape from `plasma-manager`'s kwin.nix source.
       };
 
       virtualDesktops = {
