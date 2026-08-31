@@ -4,11 +4,12 @@
 # │                    Plasma 6 — "Noir & Sapphire" rice                     │
 # │                                                                          │
 # │  Layout:                                                                │
-# │    - Top:    thin, edge-to-edge utility strip (clock, tray, network,    │
-# │              audio, calendar)                                          │
-# │    - Bottom: thick, rounded, floating, CENTERED dock (launcher,         │
-# │              search, task switcher)                                    │
-# │    - Left:   floating vertical dock of pinned GUI apps                 │
+# │    - Top:    thin, edge-to-edge glass strip — clock left, tray right    │
+# │    - Bottom: thick, rounded, floating, glass, CENTERED dock (Kickoff,   │
+# │              pinned apps, pager)                                       │
+# │    - Left:   floating vertical glass dock of pinned GUI apps           │
+# │  All three panels use opacity = "translucent" + kwin blur for a glass  │
+# │  look (see known-issue note near the panels block).                    │
 # ╰──────────────────────────────────────────────────────────────────────────╯
 
 {
@@ -45,6 +46,8 @@
 
     kwin = {
       # Wayland-first, per hardware/desktop modules from Phase 2.
+      # Blur is required for panel opacity = "translucent" to actually read
+      # as glass rather than just dimmer-solid.
       titlebarButtons = {
         left = [ "on-all-desktops" ];
         right = [ "minimize" "maximize" "close" ];
@@ -112,6 +115,13 @@
     };
 
     # ── Panels ──────────────────────────────────────────────────────────────
+    # NOTE: opacity = "translucent" below is the correct plasma-manager/KDE
+    # option for a glass panel look, but there's a known upstream flakiness
+    # where it doesn't always take effect (nix-community/plasma-manager#551,
+    # plus several KDE forum reports across versions/themes). If panels look
+    # solid after rebuild + relogin, try toggling opacity manually once via
+    # right-click panel > More Options > Opacity, or confirm Background
+    # Contrast isn't disabled under Desktop Effects.
     panels = [
       # 1) TOP — thin, full-width utility strip.
       {
@@ -121,10 +131,9 @@
         lengthMode = "fill"; # edge-to-edge, no gaps
         floating = false; # flush against the screen edge, not a floating pill
         hiding = "none"; # always visible — this is your instrument panel
+        opacity = "translucent"; # glass effect (paired with kwin.effects.blur.enable below)
 
         widgets = [
-          "org.kde.plasma.panelspacer"
-
           {
             digitalClock = {
               calendar.firstDayOfWeek = "monday";
@@ -134,7 +143,10 @@
             };
           }
 
-          "org.kde.plasma.marginsseparator"
+          # Single spacer pushes everything after it to the right edge,
+          # leaving the clock pinned left — spreads the strip instead of
+          # bunching clock + tray together in one corner.
+          "org.kde.plasma.panelspacer"
 
           {
             name = "org.kde.plasma.systemtray";
@@ -154,14 +166,16 @@
         ];
       }
 
-      # 2) BOTTOM — thick, rounded, floating, CENTERED dock.
+      # 2) BOTTOM — thick, rounded, floating, CENTERED dock (Kickoff lives
+      #    inside this pill, not pinned to a screen edge).
       {
         location = "bottom";
         height = 56;
-        alignment = "center"; # centered, not edge-to-edge
+        alignment = "center"; # centers the whole pill on the screen
         lengthMode = "fit"; # only as wide as its contents — "occupying only the center"
         floating = true; # detached from the screen edge -> rounded floating pill
         hiding = "none";
+        opacity = "translucent"; # glass effect
 
         widgets = [
           {
@@ -175,7 +189,7 @@
             };
           }
 
-          "org.kde.plasma.panelspacer"
+          "org.kde.plasma.marginsseparator"
 
           {
             iconTasks = {
@@ -192,7 +206,7 @@
             };
           }
 
-          "org.kde.plasma.panelspacer"
+          "org.kde.plasma.marginsseparator"
 
           {
             pager = { };
@@ -213,6 +227,7 @@
         lengthMode = "fit"; # only as tall as its contents, floating mid-screen
         floating = true;
         hiding = "none";
+        opacity = "translucent"; # glass effect
 
         widgets = [
           {
