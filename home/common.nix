@@ -1,17 +1,8 @@
-{
-  config,
-  pkgs,
-  lib,
-  usernameLinux,
-  usernameDarwin,
-  isDarwin,
-  isLinux,
-  ...
-}:
+{ config, pkgs, lib, usernameLinux, usernameDarwin, isDarwin, isLinux, ... }:
 
 let
   username = if isDarwin then usernameDarwin else usernameLinux;
-  homeDir = if isDarwin then "/Users/${username}" else "/home/${username}";
+  homeDir  = if isDarwin then "/Users/${username}" else "/home/${username}";
 in
 {
   home.username = username;
@@ -28,10 +19,14 @@ in
     ./programs/zellij/default.nix
     ./programs/fastfetch/default.nix
     ./programs/ssh/default.nix
-  ]
-  ++ lib.optionals isLinux [
+  ] ++ lib.optionals isLinux [
     ./programs/plasma/default.nix
+    ./programs/firefox/default.nix
+    ./programs/inkscape/default.nix
+    ./programs/musescore/default.nix
+    ./programs/libreoffice/default.nix
   ];
 
   programs.home-manager.enable = true;
 }
+

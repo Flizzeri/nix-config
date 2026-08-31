@@ -1,0 +1,113 @@
+/* ╭──────────────────────────────────────────────────────────────────────╮
+   │                    Firefox userChrome — Noir & Sapphire               │
+   ╰──────────────────────────────────────────────────────────────────────╯ */
+
+:root {
+  --noir-bg: #000000;
+  --noir-surface: #0D0D0D;
+  --noir-surface-raised: #161513;
+  --noir-border: #2A2822;
+  --noir-border-strong: #4A4433;
+
+  --noir-gold-bright: #F5C542;
+  --noir-gold: #D4A017;
+  --noir-gold-deep: #8A6A1E;
+
+  --noir-sapphire: #0A3D91;
+
+  --noir-text-primary: #F2EFE6;
+  --noir-text-secondary: #B8B2A3;
+  --noir-text-muted: #726C5E;
+}
+
+/* Toolbar + tab bar background */
+#navigator-toolbox {
+  background-color: var(--noir-bg) !important;
+  border-bottom: 1px solid var(--noir-border) !important;
+}
+
+#TabsToolbar {
+  background-color: var(--noir-bg) !important;
+}
+
+/* Tabs */
+.tabbrowser-tab .tab-background {
+  background-color: var(--noir-surface) !important;
+  border-radius: 6px !important;
+}
+
+.tabbrowser-tab[selected="true"] .tab-background {
+  background-color: var(--noir-surface-raised) !important;
+  box-shadow: inset 0 -2px 0 var(--noir-gold) !important;
+}
+
+.tabbrowser-tab .tab-label {
+  color: var(--noir-text-secondary) !important;
+}
+
+.tabbrowser-tab[selected="true"] .tab-label {
+  color: var(--noir-text-primary) !important;
+}
+
+/* URL bar */
+#urlbar-background {
+  background-color: var(--noir-surface) !important;
+  border: 1px solid var(--noir-border-strong) !important;
+}
+
+#urlbar[focused="true"] #urlbar-background {
+  border-color: var(--noir-gold) !important;
+  box-shadow: 0 0 0 1px var(--noir-gold-deep) !important;
+}
+
+#urlbar-input {
+  color: var(--noir-text-primary) !important;
+}
+
+/* Identity box (site info / lock icon area) */
+#identity-box {
+  color: var(--noir-text-secondary) !important;
+}
+
+/* Toolbar buttons */
+.toolbarbutton-1 {
+  color: var(--noir-text-secondary) !important;
+}
+
+.toolbarbutton-1:hover {
+  background-color: var(--noir-surface-raised) !important;
+  color: var(--noir-gold-bright) !important;
+}
+
+/* Bookmarks bar */
+#PersonalToolbar {
+  background-color: var(--noir-bg) !important;
+  border-top: 1px solid var(--noir-border) !important;
+}
+
+#PersonalToolbar .bookmark-item {
+  color: var(--noir-text-secondary) !important;
+}
+
+#PersonalToolbar .bookmark-item:hover {
+  color: var(--noir-gold-bright) !important;
+}
+
+/* Sidebar */
+#sidebar-box {
+  background-color: var(--noir-surface) !important;
+  color: var(--noir-text-primary) !important;
+}
+
+/* Downloads / panel popups */
+.panel-arrowcontent {
+  background-color: var(--noir-surface-raised) !important;
+  color: var(--noir-text-primary) !important;
+  border: 1px solid var(--noir-border-strong) !important;
+}
+
+/* Find bar */
+findbar {
+  background-color: var(--noir-surface) !important;
+  color: var(--noir-text-primary) !important;
+}

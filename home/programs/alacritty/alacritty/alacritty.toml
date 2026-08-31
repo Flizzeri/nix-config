@@ -1,6 +1,6 @@
 # ╭──────────────────────────────────────────────────────────────────────────╮
 # │                              Alacritty                                   │
-# │                      Pitch Black • Tokyo Night                           │
+# │                      Pitch Black • Noir & Sapphire                       │
 # ╰──────────────────────────────────────────────────────────────────────────╯
 
 [general]
@@ -11,8 +11,6 @@ import = []
 [window]
 decorations = "Buttonless"
 dynamic_padding = true
-opacity = 0.92
-blur = true
 startup_mode = "Windowed"
 title = "Terminal"
 dynamic_title = true
@@ -79,7 +77,7 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 # ── Bell ─────────────────────────────────────────────────────────────────────
 [bell]
 animation = "EaseOutExpo"
-color = "#7aa2f7"
+color = "#0A3D91"
 duration = 100
 
 # ── Terminal ─────────────────────────────────────────────────────────────────
@@ -87,7 +85,7 @@ duration = 100
 osc52 = "CopyPaste"
 
 [terminal.shell]
-program = "/bin/zsh"
+program = "/run/current-system/sw/bin/zsh"
 
 # ── Mouse ────────────────────────────────────────────────────────────────────
 [mouse]
@@ -100,7 +98,7 @@ enabled = [
 ]
 
 # ══════════════════════════════════════════════════════════════════════════════
-# COLORS - Tokyo Night with Pitch Black Background
+# COLORS - Noir & Sapphire
 # ══════════════════════════════════════════════════════════════════════════════
 
 [colors]
@@ -108,78 +106,78 @@ draw_bold_text_with_bright_colors = true
 
 [colors.primary]
 background = "#000000"
-foreground = "#c0caf5"
-dim_foreground = "#a9b1d6"
-bright_foreground = "#c0caf5"
+foreground = "#F2EFE6"
+dim_foreground = "#B8B2A3"
+bright_foreground = "#F5C542"
 
 [colors.cursor]
-cursor = "#7aa2f7"
+cursor = "#D4A017"
 text = "#000000"
 
 [colors.vi_mode_cursor]
-cursor = "#bb9af7"
-text = "#000000"
+cursor = "#0A3D91"
+text = "#F2EFE6"
 
 [colors.search.matches]
-background = "#3d59a1"
-foreground = "#c0caf5"
+background = "#0A3D91"
+foreground = "#F2EFE6"
 
 [colors.search.focused_match]
-background = "#ff9e64"
+background = "#B8790A"
 foreground = "#000000"
 
 [colors.hints.start]
-background = "#e0af68"
+background = "#D4A017"
 foreground = "#000000"
 
 [colors.hints.end]
-background = "#3b4261"
-foreground = "#c0caf5"
+background = "#2A2822"
+foreground = "#F2EFE6"
 
 [colors.line_indicator]
 foreground = "None"
 background = "None"
 
 [colors.footer_bar]
-background = "#0a0a0f"
-foreground = "#c0caf5"
+background = "#0D0D0D"
+foreground = "#F2EFE6"
 
 [colors.selection]
-background = "#283457"
-text = "#c0caf5"
+background = "#072A66"
+text = "#F2EFE6"
 
 # Normal colors
 [colors.normal]
-black = "#15161e"
-red = "#f7768e"
-green = "#9ece6a"
-yellow = "#e0af68"
-blue = "#7aa2f7"
-magenta = "#bb9af7"
-cyan = "#7dcfff"
-white = "#a9b1d6"
+black = "#0D0D0D"
+red = "#E22F4D"
+green = "#16A362"
+yellow = "#E69A0A"
+blue = "#0A3D91"
+magenta = "#8A6A1E"
+cyan = "#3E8FE0"
+white = "#B8B2A3"
 
 # Bright colors
 [colors.bright]
-black = "#3b4261"
-red = "#f7768e"
-green = "#9ece6a"
-yellow = "#e0af68"
-blue = "#7aa2f7"
-magenta = "#bb9af7"
-cyan = "#7dcfff"
-white = "#c0caf5"
+black = "#4A4433"
+red = "#E22F4D"
+green = "#16A362"
+yellow = "#F5C542"
+blue = "#3E8FE0"
+magenta = "#D4A017"
+cyan = "#6FB4F0"
+white = "#F2EFE6"
 
 # Dim colors
 [colors.dim]
-black = "#101014"
-red = "#c5616e"
-green = "#7da854"
-yellow = "#b38c53"
-blue = "#6182c5"
-magenta = "#967bc5"
-cyan = "#64a6cc"
-white = "#878d9e"
+black = "#161513"
+red = "#A3122E"
+green = "#0E7A47"
+yellow = "#B8790A"
+blue = "#072A66"
+magenta = "#5C4413"
+cyan = "#2A6BB0"
+white = "#726C5E"
 
 # ══════════════════════════════════════════════════════════════════════════════
 # KEYBOARD BINDINGS
